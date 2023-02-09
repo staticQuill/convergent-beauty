@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from backend.products.models import Product, UserProduct, Brand
+from .models import Product, UserProduct, Brand
 
 
 class BrandSerializer(serializers.HyperlinkedModelSerializer):
