@@ -7,12 +7,6 @@ from django.utils.translation import gettext_lazy as translate
 from django.contrib.postgres.operations import HStoreExtension
 
 
-class Migration(Migration):
-    operations = [
-        HStoreExtension(),
-    ]
-
-
 class Brand(models.Model):
     name = models.CharField(max_length=100)
 
