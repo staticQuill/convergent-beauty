@@ -20,7 +20,7 @@ class Enjoyment(models.Model):
         UNPLEASANT = "unpleasant", translate("unpleasant")
         NEUTRAL = "neutral", translate("neutral")
         OVERPOWERING = "overpowering", translate("overpowering")
-    name = models.CharField(max_length=15, choices=Type.choices)
+    name = models.CharField(max_length=15, choices=Type.choices, primary_key=True)
 
 
 class Texture(models.Model):
@@ -31,7 +31,7 @@ class Texture(models.Model):
         CAKEY = "cakey", translate("cakey")
         ROUGH = "rough", translate("rough")
         WET = "wet", translate("wet")
-    name = models.CharField(max_length=15, choices=Type.choices)
+    name = models.CharField(max_length=15, choices=Type.choices, primary_key=True)
 
 
 class Scent(models.Model):
@@ -42,23 +42,23 @@ class Scent(models.Model):
         CAKEY = "cakey", translate("cakey")
         ROUGH = "rough", translate("rough")
         WET = "wet", translate("wet")
-    name = models.CharField(max_length=15, choices=Type.choices)
+    name = models.CharField(max_length=15, choices=Type.choices, primary_key=True)
 
 
 class Brand(models.Model):
-    brand_id = models.CharField(max_length=8, primary_key=True)
     name = models.CharField(max_length=100)
 
 
 class Product(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
-    model = models.CharField(max_length=150)
+    name = models.CharField(max_length=150)
     texture_ratings = HStoreField()
     scent_ratings = HStoreField()
     sentiment_ratings = HStoreField()
 
 
 class UserProduct(models.Model):
+    user_product_id = models.CharField(max_length=8, primary_key=True)
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     custom_notes = models.CharField(max_length=500)
