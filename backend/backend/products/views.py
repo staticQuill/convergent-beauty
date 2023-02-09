@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
 
-from .models import Product, Brand, UserProduct, Texture, Enjoyment, Scent, Sentiment
+from .models import Product, Brand, UserProduct
 from .serializers import UserProductSerializer
 
 
