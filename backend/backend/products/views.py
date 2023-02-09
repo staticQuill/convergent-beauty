@@ -46,20 +46,20 @@ class UserProductView(APIView):
     def post(self, request) -> Response:
         user = request.user
         request_body = json.loads(request.body)
-        brand = Brand.objects.get_or_create(name=request_body.brand_name)
-        product = Product.objects.get_or_create(brand=brand, name=request_body.product_name)
-        self._alter_product_attributes(product, request_body.texture_notes, request_body.scent_notes, request_body.sentiments)
+        brand = Brand.objects.get_or_create(name=request_body["brand_name"])
+        product = Product.objects.get_or_create(brand=brand, name=request_body["product_name"])
+        self._alter_product_attributes(product, request_body["texture_notes"], request_body["scent_notes"], request_body["sentiments"])
         new_user_product_id = str(uuid4())[:8]
         user_product = UserProduct(
             user_product_id=new_user_product_id,
             product=product,
             user=user,
-            custom_notes=request_body.custom_notes,
-            texture_notes=[Texture.objects.get_or_create(name=note) for note in request_body.texture_notes],
-            texture_enjoyment=[Enjoyment.objects.get_or_create(name=note) for note in request_body.texture_enjoyment],
-            scent_notes=[Scent.objects.get_or_create(name=note) for note in request_body.scent_notes],
-            scent_enjoyment=[Enjoyment.objects.get_or_create(name=note) for note in request_body.scent_enjoyment],
-            overall_sentiments=[Sentiment.objects.get_or_create(name=note) for note in request_body.sentiments],
+            custom_notes=request_body["custom_notes"],
+            texture_notes=[note for note in request_body["texture_notes"]],
+            texture_enjoyment=[note for note in request_body["texture_enjoyment"]],
+            scent_notes=[note for note in request_body["scent_notes"]],
+            scent_enjoyment=[note for note in request_body["scent_enjoyment"]],
+            overall_sentiments=[note for note in request_body["sentiments"]],
         )
         user_product.save()
 
