@@ -14,9 +14,9 @@ class Brand(models.Model):
 class Product(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
     name = models.CharField(max_length=150)
-    texture_ratings = HStoreField(null=True)
-    scent_ratings = HStoreField(null=True)
-    sentiment_ratings = HStoreField(null=True)
+    texture_ratings = HStoreField(null=True, blank=True)
+    scent_ratings = HStoreField(null=True, blank=True)
+    sentiment_ratings = HStoreField(null=True, blank=True)
 
 
 class UserProduct(models.Model):
