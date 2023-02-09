@@ -83,8 +83,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'convergentbeauty',
-        'USER': os.getenv("PG_USER"),
-        'PASSWORD': os.getenv("PG_PASS"),
+        'USER': os.environ.get("PG_USER"),
+        'PASSWORD': os.environ.get("PG_PASS"),
         'HOST': 'localhost',
         'PORT': '5432',
     }
