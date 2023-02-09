@@ -1,7 +1,16 @@
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField, HStoreField
 from django.db import models
+from django.db.migrations import Migration
 from django.utils.translation import gettext_lazy as translate
+
+from django.contrib.postgres.operations import HStoreExtension
+
+
+class Migration(Migration):
+    operations = [
+        HStoreExtension(),
+    ]
 
 
 class Brand(models.Model):
