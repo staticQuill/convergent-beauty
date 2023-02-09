@@ -47,7 +47,15 @@ class UserProductView(APIView):
         user = request.user
         request_body = json.loads(request.body)
         brand, _ = Brand.objects.get_or_create(name=request_body["brand_name"])
-        product, _ = Product.objects.get_or_create(brand=brand, name=request_body["product_name"])
+        product = Product.objects.filter(brand=brand, name=request_body["product_name"])
+        if not product.exists():
+            product = Product(brand=brand,
+                              name=request_body["product_name"],
+                              texture_ratings={},
+                              scent_ratings={},
+                              sentiment_ratings={}
+                              )
+            product.save()
         self._alter_product_attributes(product, request_body["texture_notes"], request_body["scent_notes"], request_body["sentiments"])
         new_user_product_id = str(uuid4())[:8]
         user_product = UserProduct(
