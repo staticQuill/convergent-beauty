@@ -20,6 +20,16 @@ class Product(models.Model):
 
 
 class UserProduct(models.Model):
+    class Type(models.TextChoices):
+        CONCEALER = "foundation/concealer", translate("concealer")
+        LIPCOLOR = "lip colour", translate("lip colour")
+        BLUSH = "cheek colour", translate("cheek colour")
+        PERFUME = "perfume/cologne", translate("perfume")
+        EYESHADOW = "eyeshadow", translate("eyeshadow")
+        EYELINER = "eyeliner", translate("eyeliner")
+        MASCARA = "mascara", translate("mascara")
+        OTHER = "other", translate("other")
+
     class Sentiment(models.TextChoices):
         WRONG_LOOK = "looks wrong", translate("looks wrong")
         GOOD_LOOK = "looks good", translate("looks good")
@@ -56,3 +66,4 @@ class UserProduct(models.Model):
     scent_notes = ArrayField(models.CharField(max_length=15, choices=Scent.choices))
     scent_enjoyment = ArrayField(models.CharField(max_length=15, choices=Enjoyment.choices))
     overall_sentiments = ArrayField(models.CharField(max_length=15, choices=Sentiment.choices))
+    type = models.CharField(max_length=15, choices=Type.choices, default=Type.OTHER)
