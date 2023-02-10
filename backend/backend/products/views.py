@@ -56,6 +56,8 @@ class UserProductView(APIView):
                               sentiment_ratings={}
                               )
             product.save()
+        else:
+            product = product[0]
         self._alter_product_attributes(product, request_body["texture_notes"], request_body["scent_notes"], request_body["sentiments"])
         new_user_product_id = str(uuid4())[:8]
         user_product = UserProduct(
