@@ -13,7 +13,7 @@ from .serializers import UserProductSerializer
 
 class UserProductView(APIView):
     def get(self, request) -> Response:
-        products = UserProduct.objects.all()
+        products = UserProduct.objects.filter(user=request.user)
 
         return Response(UserProductSerializer(products).data)
 
