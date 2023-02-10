@@ -12,14 +12,6 @@ class Brand(models.Model):
 
 
 class Product(models.Model):
-    brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
-    name = models.CharField(max_length=150)
-    texture_ratings = HStoreField(null=True, blank=True)
-    scent_ratings = HStoreField(null=True, blank=True)
-    sentiment_ratings = HStoreField(null=True, blank=True)
-
-
-class UserProduct(models.Model):
     class Type(models.TextChoices):
         CONCEALER = "foundation/concealer", translate("concealer")
         LIPCOLOR = "lip colour", translate("lip colour")
@@ -30,6 +22,14 @@ class UserProduct(models.Model):
         MASCARA = "mascara", translate("mascara")
         OTHER = "other", translate("other")
 
+    brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
+    name = models.CharField(max_length=150)
+    texture_ratings = HStoreField(null=True, blank=True)
+    scent_ratings = HStoreField(null=True, blank=True)
+    sentiment_ratings = HStoreField(null=True, blank=True)
+    type = models.CharField(max_length=15, choices=Type.choices, default=Type.OTHER)
+
+class UserProduct(models.Model):
     class Sentiment(models.TextChoices):
         WRONG_LOOK = "looks wrong", translate("looks wrong")
         GOOD_LOOK = "looks good", translate("looks good")
@@ -66,4 +66,3 @@ class UserProduct(models.Model):
     scent_notes = ArrayField(models.CharField(max_length=15, choices=Scent.choices))
     scent_enjoyment = ArrayField(models.CharField(max_length=15, choices=Enjoyment.choices))
     overall_sentiments = ArrayField(models.CharField(max_length=15, choices=Sentiment.choices))
-    type = models.CharField(max_length=15, choices=Type.choices, default=Type.OTHER)
