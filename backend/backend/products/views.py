@@ -25,7 +25,7 @@ class UserProductView(APIView):
         # texture_notes takes the form like ["sticky", "wet"] etc,
         # just a list of attributes from one person's input
         for note in notes:
-            if note in ratings.keys():
+            if note is not None and note in ratings:
                 ratings[note] += 1
             else:
                 ratings[note] = 1
