@@ -16,6 +16,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         model = Product
         fields = [
             'brand',
+            'type',
             'name',
             'texture_ratings',
             'scent_ratings',
