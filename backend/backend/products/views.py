@@ -15,7 +15,7 @@ class UserProductView(APIView):
     def get(self, request) -> Response:
         products = UserProduct.objects.filter(user=request.user)
 
-        return Response(UserProductSerializer(products).data)
+        return Response([UserProductSerializer(product).data for product in products])
 
     @staticmethod
     def _increment_product_ratings(
