@@ -51,6 +51,7 @@ class UserProductView(APIView):
         if not product.exists():
             product = Product(brand=brand,
                               name=request_body["product_name"],
+                              type=request_body["type"],
                               texture_ratings={},
                               scent_ratings={},
                               sentiment_ratings={}
