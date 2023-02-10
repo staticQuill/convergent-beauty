@@ -26,7 +26,7 @@ class UserProductView(APIView):
         # just a list of attributes from one person's input
         for note in notes:
             if note is not None and note in ratings:
-                ratings[note] += 1
+                ratings[note] = int(ratings[note]) + 1
             else:
                 ratings[note] = 1
         return ratings
