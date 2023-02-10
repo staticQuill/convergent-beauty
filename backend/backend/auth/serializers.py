@@ -7,7 +7,7 @@ from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
-class UserTokenObtainPairSerializer(TokenObtainPairSerializer, ABC):
+class UserTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super(UserTokenObtainPairSerializer, cls).get_token(user)
