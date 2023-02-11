@@ -25,7 +25,7 @@ class SearchClient():
 
     def update(self, index: str, id: str, product: dict) -> None:
         try:
-            self.client.update(index=index, id=id, document=product)
+            self.client.update(index=index, id=id, doc=product)
         except (ApiError) as e:
             raise ElasticsearchError(str(e))
 
