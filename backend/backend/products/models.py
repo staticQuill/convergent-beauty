@@ -18,7 +18,7 @@ class Product(models.Model):
         EYELINER = "eyeliner", translate("eyeliner")
         MASCARA = "mascara", translate("mascara")
         OTHER = "other", translate("other")
-
+    search_id = models.CharField(max_length=16, unique=True)
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
     name = models.CharField(max_length=150)
     texture_ratings = HStoreField(null=True, blank=True)

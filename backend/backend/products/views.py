@@ -60,12 +60,15 @@ class UserProductView(APIView):
         new = False
         if not product.exists():
             new = True
-            product = Product(brand=brand,
-                              name=request_body["product_name"],
-                              type=request_body["type"],
-                              texture_ratings={},
-                              scent_ratings={},
-                              sentiment_ratings={}
+            new_id = str(uuid4())[:16]
+            product = Product(
+                search_id=new_id,
+                brand=brand,
+                name=request_body["product_name"],
+                type=request_body["type"],
+                texture_ratings={},
+                scent_ratings={},
+                sentiment_ratings={}
                               )
             product.save()
         else:
@@ -86,7 +89,7 @@ class UserProductView(APIView):
 
         base_product = ProductSerializer(product).data
         try:
-            self.search_service.add_serialized_product(new=new, product=base_product)
+            self.search_service.add_serialized_product(new=new, id=product.search_id, product=base_product)
             user_product.save()
         except ElasticsearchError as e:
             return Response({"error": str(e)}, status=HTTP_503_SERVICE_UNAVAILABLE)

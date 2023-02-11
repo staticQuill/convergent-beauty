@@ -17,8 +17,15 @@ class SearchClient():
             basic_auth=("elastic", elastic_password)
                                )
 
-    def create(self, index: str, product: dict) -> None:
+    def create(self, index: str, id: str, product: dict) -> None:
         try:
-            self.client.create(index=index, document=product)
+            self.client.create(index=index, id=id, document=product)
         except (ApiError) as e:
             raise ElasticsearchError(str(e))
+
+    def update(self, index: str, id: str, product: dict) -> None:
+        try:
+            self.client.update(index=index, id=id, document=product)
+        except (ApiError) as e:
+            raise ElasticsearchError(str(e))
+
