@@ -1,7 +1,6 @@
 import os
 from typing import Protocol
 
-from elastic_transport import TransportError
 from kink import inject
 
 from elasticsearch import Elasticsearch, ApiError
@@ -26,5 +25,5 @@ class SearchClient(Protocol):
     def create(self, index: str, product: dict) -> None:
         try:
             self.client.create(index=index, document=product)
-        except (ApiError, TransportError) as e:
+        except (ApiError) as e:
             raise ElasticsearchError(str(e))
