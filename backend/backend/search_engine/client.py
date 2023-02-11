@@ -9,7 +9,7 @@ from .errors import ElasticsearchError
 
 
 @inject
-class SearchClient(Protocol):
+class SearchClient():
     def __init__(self):
         elastic_password = os.getenv("ELASTIC_PASS")
         self.client = Elasticsearch(

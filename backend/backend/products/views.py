@@ -12,9 +12,8 @@ from kink import inject
 from .models import Product, Brand, UserProduct
 from .serializers import UserProductSerializer, ProductSerializer
 from search_engine.errors import ElasticsearchError
-from search_engine.services import ISearchService
 
-from ..search_engine.services import SearchService
+from search_engine.services import SearchService
 
 
 @inject
