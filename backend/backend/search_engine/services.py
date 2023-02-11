@@ -2,7 +2,7 @@ from typing import Protocol
 
 from kink import inject
 
-from backend.search_engine.client import ISearchClient
+from backend import ISearchClient
 
 
 class ISearchService(Protocol):
