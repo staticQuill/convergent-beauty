@@ -8,12 +8,7 @@ from elasticsearch import Elasticsearch, ApiError
 from .errors import ElasticsearchError
 
 
-class ISearchClient(Protocol):
-    def create(self) -> None:
-        ...
-
-
-@inject(alias=ISearchClient)
+@inject
 class SearchClient(Protocol):
     def __init__(self):
         elastic_password = os.getenv("ELASTIC_PASS")

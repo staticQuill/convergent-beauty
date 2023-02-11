@@ -2,17 +2,12 @@ from typing import Protocol
 
 from kink import inject
 
-from .client import ISearchClient
+from .client import SearchClient
 
 
-class ISearchService(Protocol):
-    def add_serialized_product(self, new: bool, product: dict):
-        ...
-
-
-@inject(alias=ISearchService)
-class SearchService(ISearchService):
-    def __init__(self, search_client: ISearchClient):
+@inject
+class SearchService():
+    def __init__(self, search_client: SearchClient):
         self.search_client = search_client
 
     def add_serialized_product(self, new: bool, product: dict) -> None:

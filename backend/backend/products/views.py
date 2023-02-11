@@ -14,10 +14,12 @@ from .serializers import UserProductSerializer, ProductSerializer
 from search_engine.errors import ElasticsearchError
 from search_engine.services import ISearchService
 
+from ..search_engine.services import SearchService
+
 
 @inject
 class UserProductView(APIView):
-    def __init__(self, search_service: ISearchService):
+    def __init__(self, search_service: SearchService):
         self.search_service = search_service
 
     def get(self, request) -> Response:
