@@ -4,14 +4,22 @@ from uuid import uuid4
 from django.contrib.auth.models import AnonymousUser, User
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED
+from rest_framework.status import HTTP_201_CREATED, HTTP_503_SERVICE_UNAVAILABLE
 from rest_framework.views import APIView
 
+from kink import inject
+
 from .models import Product, Brand, UserProduct
-from .serializers import UserProductSerializer
+from .serializers import UserProductSerializer, ProductSerializer
+from ..search_engine.errors import ElasticsearchError
+from ..search_engine.services import ISearchService
 
 
+@inject
 class UserProductView(APIView):
+    def __init__(self, search_service: ISearchService):
+        self.search_service = search_service
+
     def get(self, request) -> Response:
         products = UserProduct.objects.filter(user=request.user)
 
@@ -48,7 +56,9 @@ class UserProductView(APIView):
         request_body = json.loads(request.body)
         brand, _ = Brand.objects.get_or_create(name=request_body["brand_name"])
         product = Product.objects.filter(brand=brand, name=request_body["product_name"])
+        new = False
         if not product.exists():
+            new = True
             product = Product(brand=brand,
                               name=request_body["product_name"],
                               type=request_body["type"],
@@ -72,6 +82,12 @@ class UserProductView(APIView):
             scent_enjoyment=[note for note in request_body["scent_enjoyment"]],
             overall_sentiments=[note for note in request_body["sentiments"]],
         )
-        user_product.save()
+
+        base_product = ProductSerializer(product).data
+        try:
+            self.search_service.add_serialized_product(new=new, product=base_product)
+            user_product.save()
+        except ElasticsearchError as e:
+            return Response({"error": str(e)}, status=HTTP_503_SERVICE_UNAVAILABLE)
 
         return Response(UserProductSerializer(user_product).data, status=HTTP_201_CREATED)

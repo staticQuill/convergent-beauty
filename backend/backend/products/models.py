@@ -1,10 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField, HStoreField
 from django.db import models
-from django.db.migrations import Migration
 from django.utils.translation import gettext_lazy as translate
-
-from django.contrib.postgres.operations import HStoreExtension
 
 
 class Brand(models.Model):
@@ -13,10 +10,10 @@ class Brand(models.Model):
 
 class Product(models.Model):
     class Type(models.TextChoices):
-        CONCEALER = "foundation/concealer", translate("concealer")
-        LIPCOLOR = "lip colour", translate("lip colour")
-        BLUSH = "cheek colour", translate("cheek colour")
-        PERFUME = "perfume/cologne", translate("perfume")
+        CONCEALER = "foundation-concealer", translate("concealer")
+        LIPCOLOR = "lip", translate("lip")
+        BLUSH = "cheek", translate("cheek")
+        PERFUME = "perfume-cologne", translate("perfume")
         EYESHADOW = "eyeshadow", translate("eyeshadow")
         EYELINER = "eyeliner", translate("eyeliner")
         MASCARA = "mascara", translate("mascara")
