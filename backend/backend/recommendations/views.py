@@ -10,7 +10,7 @@ from products.models import UserProduct
 
 class UserPreferenceView(APIView):
     def get(self, request) -> Response:
-        user_preference_obj = UserPreference.objects.get(User=request.user)
+        user_preference_obj = UserPreference.objects.get(user=request.user)
 
         return Response([UserPreferenceSerializer(obj).data for obj in user_preference_obj])
 
