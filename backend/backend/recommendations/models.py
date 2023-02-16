@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import HStoreField
 from django.db import models
 
-from rest_framework.fields import HStoreField
 
 
 class UserPreference(models.Model):
