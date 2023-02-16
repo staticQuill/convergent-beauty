@@ -23,7 +23,7 @@ class UserPreferenceView(APIView):
             except KeyError:
                 sensory_preferences[str(sensory)] = 4 * modifier
         for sensory_key, value in community.items():
-            weight = value / total_loggings
+            weight = int(value) / total_loggings
             try:
                 sensory_preferences[str(sensory_key)] += 2 * modifier * weight
             except KeyError:
