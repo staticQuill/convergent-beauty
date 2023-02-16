@@ -13,7 +13,7 @@ class UserPreferenceView(APIView):
     def get(self, request) -> Response:
         user_preference_obj = UserPreference.objects.get(user=request.user)
 
-        return Response([UserPreferenceSerializer(obj).data for obj in user_preference_obj])
+        return Response([UserPreferenceSerializer(obj, context={'request': request}).data for obj in user_preference_obj])
 
     def _total_sensory_values(self, current_preference: dict, total_loggings: int, personal: list, community: dict, modifier: int) -> dict:
         sensory_preferences = {}
@@ -87,5 +87,5 @@ class UserPreferenceView(APIView):
 
         user_preference.save()
 
-        return Response(UserPreferenceSerializer(user_preference).data, status=HTTP_200_OK)
+        return Response(UserPreferenceSerializer(user_preference, context={'request': request}).data, status=HTTP_200_OK)
 
