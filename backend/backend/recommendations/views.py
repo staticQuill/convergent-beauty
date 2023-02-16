@@ -15,20 +15,19 @@ class UserPreferenceView(APIView):
 
         return Response(UserPreferenceSerializer(obj, context={'request': request}).data)
 
-    def _total_sensory_values(self, current_preference: dict, total_loggings: int, personal: list, community: dict, modifier: int) -> dict:
-        sensory_preferences = {}
+    def _total_sensory_values(self, preferences: dict, total_loggings: int, personal: list, community: dict, modifier: int) -> dict:
         for sensory in personal:
             try:
-                sensory_preferences[str(sensory)] += 4 * modifier
+                preferences[str(sensory)] += 4 * modifier
             except KeyError:
-                sensory_preferences[str(sensory)] = 4 * modifier
+                preferences[str(sensory)] = 4 * modifier
         for sensory_key, value in community.items():
             weight = int(value) / total_loggings
             try:
-                sensory_preferences[str(sensory_key)] += 2 * modifier * weight
+                preferences[str(sensory_key)] += 2 * modifier * weight
             except KeyError:
-                sensory_preferences[str(sensory_key)] = 2 * modifier * weight
-        return sensory_preferences
+                preferences[str(sensory_key)] = 2 * modifier * weight
+        return preferences
 
     def _generate_modifier(self, enjoyment: list) -> int:
         if "neutral" in enjoyment or ("unpleasant" in enjoyment and "pleasant" in enjoyment):
