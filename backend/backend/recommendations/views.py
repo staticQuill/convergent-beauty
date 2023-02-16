@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 
 from .models import UserPreference
 from .serializers import UserPreferenceSerializer
-from ..products.models import UserProduct
+from products.models import UserProduct
 
 
 class UserPreferenceView(APIView):
