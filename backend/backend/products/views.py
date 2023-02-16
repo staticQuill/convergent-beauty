@@ -69,7 +69,8 @@ class UserProductView(APIView):
                 type=request_body["type"],
                 texture_ratings={},
                 scent_ratings={},
-                sentiment_ratings={}
+                sentiment_ratings={},
+                times_logged=1
                               )
             product.save()
         else:
