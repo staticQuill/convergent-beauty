@@ -65,7 +65,7 @@ class UserPreferenceView(APIView):
             )
             scent_modifier = self._generate_modifier(product.scent_enjoyment)
             personal_scent = product.scent_notes
-            community_scent = product.scent_notes
+            community_scent = product.product.scent_ratings
             scent_preferences = self._total_sensory_values(
                 current_preference = scent_preferences,
                 total_loggings=total_product_loggings,
