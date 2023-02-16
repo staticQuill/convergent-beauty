@@ -21,9 +21,9 @@ class Product(models.Model):
     search_id = models.CharField(max_length=16, unique=True)
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
     name = models.CharField(max_length=150)
-    texture_ratings = HStoreField(null=True, blank=True)
-    scent_ratings = HStoreField(null=True, blank=True)
-    sentiment_ratings = HStoreField(null=True, blank=True)
+    texture_ratings = HStoreField(blank=True)
+    scent_ratings = HStoreField(blank=True)
+    sentiment_ratings = HStoreField(blank=True)
     times_logged = models.IntegerField()
     type = models.CharField(max_length=25, choices=Type.choices, default=Type.OTHER)
 
