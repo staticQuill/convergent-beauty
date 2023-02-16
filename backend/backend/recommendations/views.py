@@ -38,7 +38,7 @@ class UserPreferenceView(APIView):
 
         # you have to get all of the products associated with the user
         try:
-            user_products = UserProduct.objects.get(user=user)
+            user_products = [product for product in UserProduct.objects.filter(user=user)]
         except ObjectDoesNotExist:
             return Response({"error": "User has no products yet!"}, status=HTTP_404_NOT_FOUND)
 
