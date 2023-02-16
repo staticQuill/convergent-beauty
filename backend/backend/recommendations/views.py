@@ -27,7 +27,7 @@ class UserPreferenceView(APIView):
             try:
                 sensory_preferences[str(sensory_key)] += 2 * modifier * weight
             except KeyError:
-                sensory_preferences[str(sensory_key)] += 2 * modifier * weight
+                sensory_preferences[str(sensory_key)] = 2 * modifier * weight
         return sensory_preferences
 
     def _generate_modifier(self, enjoyment: list) -> int:
