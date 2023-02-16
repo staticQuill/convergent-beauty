@@ -55,7 +55,7 @@ class UserPreferenceView(APIView):
             personal_textures = product.texture_notes
             community_textures = product.product.texture_ratings
             texture_preferences = self._total_sensory_values(
-                current_preference = texture_preferences,
+                preferences = texture_preferences,
                 total_loggings=total_product_loggings,
                 personal=personal_textures,
                 community=community_textures,
@@ -65,7 +65,7 @@ class UserPreferenceView(APIView):
             personal_scent = product.scent_notes
             community_scent = product.product.scent_ratings
             scent_preferences = self._total_sensory_values(
-                current_preference = scent_preferences,
+                preferences = scent_preferences,
                 total_loggings=total_product_loggings,
                 personal=personal_scent,
                 community=community_scent,
