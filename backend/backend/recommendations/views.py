@@ -18,10 +18,10 @@ class UserPreferenceView(APIView):
     def _total_sensory_values(self, current_preference: dict, total_loggings: int, personal: list, community: dict, modifier: int) -> dict:
         sensory_preferences = {}
         for sensory in personal:
-            sensory_preferences[sensory] += 4 * modifier
+            sensory_preferences[str(sensory)] += 4 * modifier
         for sensory_key, value in community.items():
             weight = value / total_loggings
-            sensory_preferences[sensory_key] += 2 * modifier * weight
+            sensory_preferences[str(sensory_key)] += 2 * modifier * weight
 
     def _generate_modifier(self, enjoyment: list) -> int:
         if "neutral" in enjoyment or ("disliked" in enjoyment and "liked" in enjoyment):
