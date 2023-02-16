@@ -35,7 +35,7 @@ class UserPreferenceView(APIView):
             return 0
         elif "unpleasant" in enjoyment:
             return -1
-        elif "pleasant" in enjoyment:
+        elif "pleasant`a" in enjoyment:
             return 1
         else:
             return 0

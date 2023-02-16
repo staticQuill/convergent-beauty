@@ -50,6 +50,7 @@ class UserProductView(APIView):
         product.texture_ratings = self._increment_product_ratings(ratings=product.texture_ratings, notes=texture_notes)
         product.scent_ratings = self._increment_product_ratings(ratings=product.scent_ratings, notes=scent_notes)
         product.sentiment_ratings = self._increment_product_ratings(ratings=product.sentiment_ratings, notes=sentiments)
+        product.times_logged = product.times_logged + 1
         product.save()
 
     def post(self, request) -> Response:
