@@ -1,4 +1,5 @@
 # Create your views here.
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK
 from rest_framework.views import APIView
@@ -36,8 +37,9 @@ class UserPreferenceView(APIView):
         user = request.user
 
         # you have to get all of the products associated with the user
-        user_products = UserProduct.objects.get(user=user)
-        if len(user_products) == 0:
+        try:
+            user_products = UserProduct.objects.get(user=user)
+        except ObjectDoesNotExist:
             return Response({"error": "User has no products yet!"}, status=HTTP_404_NOT_FOUND)
 
         texture_preferences = {}
@@ -65,16 +67,16 @@ class UserPreferenceView(APIView):
                 modifier=scent_modifier
             )
 
-        user_preference = UserPreference.objects.get(user=user)
-        if not user_preference:
+        try:
+            user_preference = UserPreference.objects.get(user=user)
+            user_preference.texture_preferences = texture_preferences
+            user_preference.scent_preferences = scent_preferences
+        except ObjectDoesNotExist:
             user_preference = UserPreference(
                 user=user,
                 texture_preferences=texture_preferences,
                 scent_preferences=scent_preferences
             )
-        else:
-            user_preference.texture_preferences = texture_preferences
-            user_preference.scent_preferences = scent_preferences
 
         user_preference.save()
 
