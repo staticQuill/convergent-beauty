@@ -31,11 +31,11 @@ class UserPreferenceView(APIView):
         return sensory_preferences
 
     def _generate_modifier(self, enjoyment: list) -> int:
-        if "neutral" in enjoyment or ("disliked" in enjoyment and "liked" in enjoyment):
+        if "neutral" in enjoyment or ("unpleasant" in enjoyment and "pleasant" in enjoyment):
             return 0
-        elif "disliked" in enjoyment:
+        elif "unpleasant" in enjoyment:
             return -1
-        elif "liked" in enjoyment:
+        elif "pleasant" in enjoyment:
             return 1
         else:
             return 0
@@ -43,7 +43,6 @@ class UserPreferenceView(APIView):
     def post(self, request) -> Response:
         user = request.user
 
-        # you have to get all of the products associated with the user
         try:
             user_products = [product for product in UserProduct.objects.filter(user=user)]
         except ObjectDoesNotExist:
