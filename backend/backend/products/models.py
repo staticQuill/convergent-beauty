@@ -24,6 +24,7 @@ class Product(models.Model):
     texture_ratings = HStoreField(null=True, blank=True)
     scent_ratings = HStoreField(null=True, blank=True)
     sentiment_ratings = HStoreField(null=True, blank=True)
+    times_logged = models.IntegerField()
     type = models.CharField(max_length=25, choices=Type.choices, default=Type.OTHER)
 
 class UserProduct(models.Model):
