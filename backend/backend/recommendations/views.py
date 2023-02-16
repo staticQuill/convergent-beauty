@@ -13,7 +13,7 @@ class UserPreferenceView(APIView):
     def get(self, request) -> Response:
         user_preference_obj = UserPreference.objects.get(user=request.user)
 
-        return Response([UserPreferenceSerializer(obj, context={'request': request}).data for obj in user_preference_obj])
+        return Response(UserPreferenceSerializer(obj, context={'request': request}).data)
 
     def _total_sensory_values(self, current_preference: dict, total_loggings: int, personal: list, community: dict, modifier: int) -> dict:
         sensory_preferences = {}
