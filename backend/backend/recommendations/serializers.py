@@ -4,7 +4,7 @@ from .models import UserPreference
 from auth.serializers import SimpleUserSerializer
 
 
-class UserPreferenceSerializer(serializers.HyperlinkedModelSerializer):
+class UserPreferenceSerializer(serializers.ModelSerializer):
     user = SimpleUserSerializer(read_only=True)
 
     class Meta:
