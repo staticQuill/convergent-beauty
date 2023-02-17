@@ -110,7 +110,7 @@ class RecommendationView(APIView):
             if k in scent:
                 unsorted.append({"k": f"scent_ratings.{k}", "v": v,  "path": "scent_ratings"})
 
-        return [{kv["k"]: {"missing": ("_last" if Decimal(kv["v"]) > 0 else "_first"), "order": ("asc" if Decimal(kv["v"]) > 0 else "desc"), "nested_path": kv["path"]}} for kv in sorted(unsorted, key=lambda d: abs(Decimal(d["v"])))][::-1]
+        return [{kv["k"]: {"ignore_unmapped": True, "missing": ("_last" if Decimal(kv["v"]) > 0 else "_first"), "order": ("asc" if Decimal(kv["v"]) > 0 else "desc"), "nested_path": kv["path"]}} for kv in sorted(unsorted, key=lambda d: abs(Decimal(d["v"])))][::-1]
 
     def get(self, request) -> Response:
         try:

@@ -24,14 +24,14 @@ def test_sort_param_asc_and_desc_orders(monkeypatch) -> None:
     sort_params = rec_view._generate_sort_params(texture=texture_prefs, scent=scent_prefs)
 
     assert sort_params == [
-        {"scent_ratings.neutral": {"missing": "_last", "order": "asc", "nested_path": "scent_ratings"}},
-        {"texture_ratings.wet": {"missing": "_last", "order": "asc", "nested_path": "texture_ratings"}},
-        {"texture_ratings.smooth": {"missing": "_last", "order": "asc", "nested_path": "texture_ratings"}},
-        {"scent_ratings.fruity": {"missing": "_last", "order": "asc", "nested_path": "scent_ratings"}},
-        {"texture_ratings.slimy": {"missing": "_first", "order": "desc", "nested_path": "texture_ratings"}},
-        {"scent_ratings.floral": {"missing": "_last", "order": "asc", "nested_path": "scent_ratings"}},
-        {"texture_ratings.sticky": {"missing": "_first", "order": "desc", "nested_path": "texture_ratings"}},
-        {"texture_ratings.cakey": {"missing": "_last", "order": "asc", "nested_path": "texture_ratings"}},
-        {"scent_ratings.clean": {"missing": "_first", "order": "desc", "nested_path": "scent_ratings"}},
-        {"scent_ratings.sweet": {"missing": "_first", "order": "desc", "nested_path": "scent_ratings"}},
+        {"scent_ratings.neutral": {"ignore_unmapped": True, "missing": "_last", "order": "asc", "nested_path": "scent_ratings"}},
+        {"texture_ratings.wet": {"ignore_unmapped": True, "missing": "_last", "order": "asc", "nested_path": "texture_ratings"}},
+        {"texture_ratings.smooth": {"ignore_unmapped": True, "missing": "_last", "order": "asc", "nested_path": "texture_ratings"}},
+        {"scent_ratings.fruity": {"ignore_unmapped": True, "missing": "_last", "order": "asc", "nested_path": "scent_ratings"}},
+        {"texture_ratings.slimy": {"ignore_unmapped": True, "missing": "_first", "order": "desc", "nested_path": "texture_ratings"}},
+        {"scent_ratings.floral": {"ignore_unmapped" : True, "missing": "_last", "order": "asc", "nested_path": "scent_ratings"}},
+        {"texture_ratings.sticky": {"ignore_unmapped" : True, "missing": "_first", "order": "desc", "nested_path": "texture_ratings"}},
+        {"texture_ratings.cakey": {"ignore_unmapped" : True, "missing": "_last", "order": "asc", "nested_path": "texture_ratings"}},
+        {"scent_ratings.clean": {"ignore_unmapped" : True, "missing": "_first", "order": "desc", "nested_path": "scent_ratings"}},
+        {"scent_ratings.sweet": {"ignore_unmapped" : True, "missing": "_first", "order": "desc", "nested_path": "scent_ratings"}},
     ]
