@@ -1,4 +1,5 @@
 # Create your views here.
+from decimal import Decimal
 from typing import List
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -106,7 +107,7 @@ class RecommendationView(APIView):
         for k, v in combined_preferences.items():
             unsorted.append({"k": k, "v": v})
 
-        return [{kv["k"]: ("asc" if kv["v"] > 0 else "desc")} for kv in sorted(unsorted, key=lambda d: abs(d["v"]))][::-1]
+        return [{kv["k"]: ("asc" if kv["v"] > 0 else "desc")} for kv in sorted(unsorted, key=lambda d: abs(Decimal(d["v"])))][::-1]
 
     def get(self, request) -> Response:
         try:
