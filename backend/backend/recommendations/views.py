@@ -1,4 +1,6 @@
 # Create your views here.
+from typing import List
+
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK
@@ -7,6 +9,11 @@ from rest_framework.views import APIView
 from .models import UserPreference
 from .serializers import UserPreferenceSerializer
 from products.models import UserProduct
+from search_engine.errors import ElasticsearchError
+
+from search_engine.services import SearchService
+
+from kink import inject
 
 
 class UserPreferenceView(APIView):
@@ -87,3 +94,29 @@ class UserPreferenceView(APIView):
 
         return Response(UserPreferenceSerializer(user_preference, context={'request': request}).data, status=HTTP_200_OK)
 
+
+@inject
+class RecommendationView(APIView):
+    def __init__(self, search_service: SearchService):
+        self.search_service = search_service
+
+    def _generate_sort_params(self, texture: dict, scent: dict) -> List[dict]:
+        unsorted = []
+        combined_preferences = {**texture, **scent}
+        for k, v in combined_preferences.items():
+            unsorted.append({"k": k, "v": v})
+
+        return [{kv["k"]: ("asc" if kv["v"] > 0 else "desc")} for kv in sorted(unsorted, key=lambda d: abs(d["v"]))][::-1]
+
+    def get(self, request) -> Response:
+        try:
+            user_preference = UserPreference.objects.get(user=request.user)
+        except ObjectDoesNotExist:
+            return Response({"error": "User has not generated preferences yet!"}, status=HTTP_404_NOT_FOUND)
+
+        sort_params = self._generate_sort_params(
+            texture=user_preference.texture_preferences,
+            scent=user_preference.scent_preferences
+        )
+
+        return self.search_service.get_recommendations(sort_list=sort_params)

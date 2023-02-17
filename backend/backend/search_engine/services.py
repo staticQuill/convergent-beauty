@@ -16,3 +16,7 @@ class SearchService():
             self.search_client.create(index=index, id=id, product=product)
         else:
             self.search_client.update(index=index, id=id, product=product)
+
+    def get_recommendations(self, sort_list: list) -> list:
+        # soon, take in an index and a query
+        return self.search_client.search(sort=sort_list)
