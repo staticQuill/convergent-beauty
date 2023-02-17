@@ -24,14 +24,14 @@ def test_sort_param_asc_and_desc_orders(monkeypatch) -> None:
     sort_params = rec_view._generate_sort_params(texture=texture_prefs, scent=scent_prefs)
 
     assert sort_params == [
-        {"neutral": "asc"},
-        {"wet": "asc"},
-        {"smooth": "asc"},
-        {"fruity": "asc"},
-        {"slimy": "desc"},
-        {"floral": "asc"},
-        {"sticky": "desc"},
-        {"cakey": "asc"},
-        {"clean": "desc"},
-        {"sweet": "desc"}
+        {"scent_ratings.neutral": {"missing": "_last", "order": "asc", "nested_path": "scent_ratings"}},
+        {"texture_ratings.wet": {"missing": "_last", "order": "asc", "nested_path": "texture_ratings"}},
+        {"texture_ratings.smooth": {"missing": "_last", "order": "asc", "nested_path": "texture_ratings"}},
+        {"scent_ratings.fruity": {"missing": "_last", "order": "asc", "nested_path": "scent_ratings"}},
+        {"texture_ratings.slimy": {"missing": "_first", "order": "desc", "nested_path": "texture_ratings"}},
+        {"scent_ratings.floral": {"missing": "_last", "order": "asc", "nested_path": "scent_ratings"}},
+        {"texture_ratings.sticky": {"missing": "_first", "order": "desc", "nested_path": "texture_ratings"}},
+        {"texture_ratings.cakey": {"missing": "_last", "order": "asc", "nested_path": "texture_ratings"}},
+        {"scent_ratings.clean": {"missing": "_first", "order": "desc", "nested_path": "scent_ratings"}},
+        {"scent_ratings.sweet": {"missing": "_first", "order": "desc", "nested_path": "scent_ratings"}},
     ]
