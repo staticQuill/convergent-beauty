@@ -123,4 +123,4 @@ class RecommendationView(APIView):
             scent=user_preference.scent_preferences
         )
 
-        return self.search_service.get_recommendations(sort_list=sort_params)
+        return Response(dict(self.search_service.get_recommendations(sort_list=sort_params)), status=HTTP_200_OK)
