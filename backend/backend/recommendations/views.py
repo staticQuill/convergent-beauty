@@ -120,6 +120,8 @@ class RecommendationView(APIView):
             if not any([(item["name"] == product.name and item["brand"]["name"] == product.brand.name) for product in user_owned]):
                 returnable_items.append(item)
 
+        return returnable_items
+
     def get(self, request) -> Response:
         index = request.GET.get("types", None)
         try:
