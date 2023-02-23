@@ -156,7 +156,7 @@ LOGGING = {
         },
     },
     "loggers": {
-        "django": {
+        "recommendations": {
             "handlers": ["file"],
             "level": "INFO",
             "propagate": True
