@@ -17,5 +17,5 @@ class SearchService():
         else:
             self.search_client.update(index=index, id=id, product=product)
 
-    def get_recommendations(self, sort_list: list, offset: int, index: str = "*,-.*,-kibana") -> list:
+    def get_recommendations(self, sort_list: list, offset: int, index: str) -> list:
         return self.search_client.search(sort=sort_list, offset=offset, index=index)
