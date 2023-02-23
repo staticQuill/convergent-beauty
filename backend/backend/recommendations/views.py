@@ -2,6 +2,7 @@
 from decimal import Decimal
 from typing import List
 
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.response import Response
 from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK
@@ -112,7 +113,26 @@ class RecommendationView(APIView):
 
         return [{kv["k"]: {"unmapped_type": "integer", "missing": ("_last" if Decimal(kv["v"]) > 0 else "_first"), "order": ("asc" if Decimal(kv["v"]) > 0 else "desc"), "nested_path": kv["path"]}} for kv in sorted(unsorted, key=lambda d: abs(Decimal(d["v"])))][::-1]
 
+    def _remove_owned_items(self, user: User, items: List[dict]) -> List[dict]:
+        user_owned = [product.product for product in UserProduct.objects.get(user=user)]
+        returnable_items = []
+        for item in items:
+            """
+            we want to iterate through the less likely matches first,
+            before iterating more common matches (brand)
+            So that in most cases we only iterate over user_owned once
+            (If the product name matches, it's PROBABLY the same product.
+            If the brand matches, there's a good chance it's still a different product)
+            """
+            if any([item["name"] == product.name for product in user_owned]):
+                if any([item["brand"]["name"] == product.brand for product in user_owned]):
+                    continue
+            returnable_items.append(item)
+
+        return returnable_items
+
     def get(self, request) -> Response:
+        index = request.GET.get("types", None)
         try:
             user_preference = UserPreference.objects.get(user=request.user)
         except ObjectDoesNotExist:
@@ -123,4 +143,8 @@ class RecommendationView(APIView):
             scent=user_preference.scent_preferences
         )
 
-        return Response(dict(self.search_service.get_recommendations(sort_list=sort_params)), status=HTTP_200_OK)
+        unfiltered_items = self.search_service.get_recommendations(sort_list=sort_params, index=index)
+
+        filtered_response = self._remove_owned_items(user=request.user, items=unfiltered_items)
+
+        return Response(filtered_response, status=HTTP_200_OK)

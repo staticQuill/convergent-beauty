@@ -1,0 +1,216 @@
+{
+    "brand_name": "Brand A",
+    "product_name": "Product 1",
+    "type": "foundation-concealer",
+    "texture_notes": ["rough"],
+    "scent_notes": ["clean"],
+    "texture_enjoyment": ["pleasant"],
+    "scent_enjoyment": ["neutral"],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand A",
+    "product_name": "Product 2",
+    "type": "lip",
+    "texture_notes": ["slimy"],
+    "scent_notes": ["clean"],
+    "texture_enjoyment": ["unpleasant"],
+    "scent_enjoyment": ["unpleasant"],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand A",
+    "product_name": "Product 3",
+    "type": "cheek",
+    "texture_notes": ["smooth"],
+    "scent_notes": ["clean"],
+    "texture_enjoyment": ["pleasant"],
+    "scent_enjoyment": ["pleasant"],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand B",
+    "product_name": "Product 1",
+    "type": "skincare",
+    "texture_notes": ["smooth", "wet"],
+    "scent_notes": ["clean"],
+    "texture_enjoyment": ["pleasant"],
+    "scent_enjoyment": ["pleasant"],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand B",
+    "product_name": "Product 2",
+    "type": "foundation-concealer",
+    "texture_notes": ["cakey"],
+    "scent_notes": ["floral"],
+    "texture_enjoyment": ["pleasant"],
+    "scent_enjoyment": ["pleasant"],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand B",
+    "product_name": "Product 3",
+    "type": "eyeshadow",
+    "texture_notes": ["rough"],
+    "scent_notes": [],
+    "texture_enjoyment": ["pleasant"],
+    "scent_enjoyment": [],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand B",
+    "product_name": "Product 4",
+    "type": "eyeliner",
+    "texture_notes": ["rough"],
+    "scent_notes": [],
+    "texture_enjoyment": ["pleasant"],
+    "scent_enjoyment": [],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand C",
+    "product_name": "Product 1",
+    "type": "mascara",
+    "texture_notes": ["cakey"],
+    "scent_notes": [],
+    "texture_enjoyment": ["pleasant"],
+    "scent_enjoyment": [],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand C",
+    "product_name": "Product 2",
+    "type": "foundation-concealer",
+    "texture_notes": ["cakey"],
+    "scent_notes": [],
+    "texture_enjoyment": ["unpleasant"],
+    "scent_enjoyment": [],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand C",
+    "product_name": "Product 3",
+    "type": "Mascara",
+    "texture_notes": ["slimy"],
+    "scent_notes": ["clean"],
+    "texture_enjoyment": ["unpleasant"],
+    "scent_enjoyment": ["unpleasant"],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand C",
+    "product_name": "Product 4",
+    "type": "foundation-concealer",
+    "texture_notes": ["smooth"],
+    "scent_notes": [],
+    "texture_enjoyment": ["unpleasant"],
+    "scent_enjoyment": [],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand D",
+    "product_name": "Product 1",
+    "type": "cheek",
+    "texture_notes": ["smooth"],
+    "scent_notes": ["floral"],
+    "texture_enjoyment": ["pleasant"],
+    "scent_enjoyment": ["unpleasant"],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand D",
+    "product_name": "Product 2",
+    "type": "lip",
+    "texture_notes": ["slimy"],
+    "scent_notes": ["floral"],
+    "texture_enjoyment": ["unpleasant"],
+    "scent_enjoyment": ["pleasant"],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand D",
+    "product_name": "Product 3",
+    "type": "mascara",
+    "texture_notes": ["slimy"],
+    "scent_notes": ["clean"],
+    "texture_enjoyment": ["unpleasant"],
+    "scent_enjoyment": ["unpleasant"],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand D",
+    "product_name": "Product 4",
+    "type": "foundation-concealer",
+    "texture_notes": ["wet", "slimy"],
+    "scent_notes": [],
+    "texture_enjoyment": ["unpleasant"],
+    "scent_enjoyment": [],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand E",
+    "product_name": "Product 1",
+    "type": "cheek",
+    "texture_notes": ["cakey"],
+    "scent_notes": ["clean"],
+    "texture_enjoyment": ["pleasant"],
+    "scent_enjoyment": ["unpleasant"],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand E",
+    "product_name": "Product 2",
+    "type": "foundation-concealer",
+    "texture_notes": ["cakey"],
+    "scent_notes": [],
+    "texture_enjoyment": ["pleasant"],
+    "scent_enjoyment": [],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
+{
+    "brand_name": "Brand E",
+    "product_name": "Product 3",
+    "type": "foundation-concealer",
+    "texture_notes": ["slimy"],
+    "scent_notes": [],
+    "texture_enjoyment": ["unpleasant"],
+    "scent_enjoyment": [],
+    "sentiments": [],
+    "custom_notes": ""
+}
+
