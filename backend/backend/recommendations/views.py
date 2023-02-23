@@ -17,7 +17,7 @@ from search_engine.services import SearchService
 
 from kink import inject
 
-from ..products.models import Product
+from products.models import Product
 
 
 class UserPreferenceView(APIView):
