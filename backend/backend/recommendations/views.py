@@ -129,7 +129,7 @@ class RecommendationView(APIView):
         items.extend(filtered_response)
 
         if len(items) < 10 and new_items:
-            return self._paginate(sort_list=sort_list, index=index, user_owned=user_owned, items=items, offset=offset + 20)
+            return self._paginate(sort_list=sort_list, index=index, user_owned=user_owned, items=items, offset=(offset + 10))
         elif len(items) > 10:
             return items[:10]
         else:
