@@ -136,7 +136,7 @@ class RecommendationView(APIView):
             return items
 
     def get(self, request) -> Response:
-        index = request.GET.get("types", "*,-.*,-kibana")
+        index = request.GET.get("types", "*,-.*,")
         try:
             user_preference = UserPreference.objects.get(user=request.user)
         except ObjectDoesNotExist:
