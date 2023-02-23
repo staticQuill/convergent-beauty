@@ -30,4 +30,4 @@ class SearchClient():
             raise ElasticsearchError(str(e))
 
     def search(self, sort: list, index: str) -> list:
-        return self.client.search(sort=sort, index=index)["hits"]["hits"]
+        return [result["_source"] for result in self.client.search(sort=sort, index=index)["hits"]["hits"]]
