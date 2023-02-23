@@ -29,5 +29,5 @@ class SearchClient():
         except (ApiError) as e:
             raise ElasticsearchError(str(e))
 
-    def search(self, sort: list, index: str) -> list:
-        return [result["_source"] for result in self.client.search(sort=sort, index=index)["hits"]["hits"]]
+    def search(self, sort: list, offset: int, index: str) -> list:
+        return [result["_source"] for result in self.client.search(sort=sort, from_=offset, index=index)["hits"]["hits"]]

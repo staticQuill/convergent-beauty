@@ -17,6 +17,8 @@ from search_engine.services import SearchService
 
 from kink import inject
 
+from ..products.models import Product
+
 
 class UserPreferenceView(APIView):
     def get(self, request) -> Response:
@@ -113,14 +115,25 @@ class RecommendationView(APIView):
 
         return [{kv["k"]: {"unmapped_type": "integer", "missing": ("_last" if Decimal(kv["v"]) > 0 else "_first"), "order": ("asc" if Decimal(kv["v"]) > 0 else "desc"), "nested_path": kv["path"]}} for kv in sorted(unsorted, key=lambda d: abs(Decimal(d["v"])))][::-1]
 
-    def _remove_owned_items(self, user: User, items: List[dict]) -> List[dict]:
-        user_owned = [product.product for product in UserProduct.objects.filter(user=user)]
+    def _remove_owned_items(self, user_owned: List[Product], items: List[dict]) -> List[dict]:
         returnable_items = []
         for item in items:
             if not any([(item["name"] == product.name and item["brand"]["name"] == product.brand.name) for product in user_owned]):
                 returnable_items.append(item)
 
         return returnable_items
+
+    def _paginate(self, sort_list: List[dict], index: str, user_owned: List[Product], items: list = [], offset: int = 0) -> List[dict]:
+        new_items = self.search_service.get_recommendations(sort_list=sort_list, index=index, offset=offset)
+        filtered_response = self._remove_owned_items(user_owned=user_owned, items=new_items)
+        items.extend(filtered_response)
+
+        if len(items) < 10 and new_items:
+            return self._paginate(sort_list=sort_list, index=index, user_owned=user_owned, items=items, offset=offset + 20)
+        elif len(items) > 10:
+            return items[:10]
+        else:
+            return items
 
     def get(self, request) -> Response:
         index = request.GET.get("types", None)
@@ -134,8 +147,8 @@ class RecommendationView(APIView):
             scent=user_preference.scent_preferences
         )
 
-        unfiltered_items = self.search_service.get_recommendations(sort_list=sort_params, index=index)
+        user_owned = [product.product for product in UserProduct.objects.filter(user=request.user)]
 
-        filtered_response = self._remove_owned_items(user=request.user, items=unfiltered_items)
+        response = self._paginate(sort_list=sort_params, index=index, user_owned=user_owned)
 
-        return Response(filtered_response, status=HTTP_200_OK)
+        return Response(response, status=HTTP_200_OK)
