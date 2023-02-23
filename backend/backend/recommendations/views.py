@@ -117,19 +117,8 @@ class RecommendationView(APIView):
         user_owned = [product.product for product in UserProduct.objects.filter(user=user)]
         returnable_items = []
         for item in items:
-            """
-            we want to iterate through the less likely matches first,
-            before iterating more common matches (brand)
-            So that in most cases we only iterate over user_owned once
-            (If the product name matches, it's PROBABLY the same product.
-            If the brand matches, there's a good chance it's still a different product)
-            """
-            if any([item["name"] == product.name for product in user_owned]):
-                if any([item["brand"]["name"] == product.brand for product in user_owned]):
-                    continue
-            returnable_items.append(item)
-
-        return returnable_items
+            if not any([(item["name"] == product.name and item["brand"]["name"] == product.brand.name) for product in user_owned]):
+                returnable_items.append(item)
 
     def get(self, request) -> Response:
         index = request.GET.get("types", None)
