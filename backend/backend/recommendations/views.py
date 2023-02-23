@@ -19,6 +19,11 @@ from kink import inject
 
 from products.models import Product
 
+import logging
+
+
+logger = logging.getLogger(__file__)
+
 
 class UserPreferenceView(APIView):
     def get(self, request) -> Response:
@@ -119,12 +124,15 @@ class RecommendationView(APIView):
         returnable_items = []
         for item in items:
             if not any([(item["name"] == product.name and item["brand"]["name"] == product.brand.name) for product in user_owned]):
+                logger.info("adding item")
                 returnable_items.append(item)
 
         return returnable_items
 
     def _paginate(self, sort_list: List[dict], index: str, user_owned: List[Product], items: list = [], offset: int = 0) -> List[dict]:
+        logger.info("paginating")
         new_items = self.search_service.get_recommendations(sort_list=sort_list, index=index, offset=offset)
+        logger.info(f"{new_items=}")
         filtered_response = self._remove_owned_items(user_owned=user_owned, items=new_items)
         items.extend(filtered_response)
 
