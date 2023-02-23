@@ -114,7 +114,7 @@ class RecommendationView(APIView):
         return [{kv["k"]: {"unmapped_type": "integer", "missing": ("_last" if Decimal(kv["v"]) > 0 else "_first"), "order": ("asc" if Decimal(kv["v"]) > 0 else "desc"), "nested_path": kv["path"]}} for kv in sorted(unsorted, key=lambda d: abs(Decimal(d["v"])))][::-1]
 
     def _remove_owned_items(self, user: User, items: List[dict]) -> List[dict]:
-        user_owned = [product.product for product in UserProduct.objects.get(user=user)]
+        user_owned = [product.product for product in UserProduct.objects.filter(user=user)]
         returnable_items = []
         for item in items:
             """
