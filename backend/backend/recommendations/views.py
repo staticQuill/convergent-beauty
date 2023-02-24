@@ -131,6 +131,8 @@ class RecommendationView(APIView):
 
     def _paginate(self, sort_list: List[dict], index: str, user_owned: List[Product], items: list = [], offset: int = 0) -> List[dict]:
         logger.info("paginating")
+        if offset == 0:
+            items = []
         new_items = self.search_service.get_recommendations(sort_list=sort_list, index=index, offset=offset)
         logger.info(f"{new_items=}")
         filtered_response = self._remove_owned_items(user_owned=user_owned, items=new_items)
