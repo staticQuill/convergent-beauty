@@ -41,13 +41,13 @@ class SearchClient():
                         {
                             "match": {
                                 "brand.name": {
-                                  "query": "brand"
+                                  "query": brand
                                 }
                               }
                             },
                         {
                             "match_phrase_prefix": {
-                                "field": "partial"
+                                field: partial
                               }
                             }
                           ]
