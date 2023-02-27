@@ -1,25 +1,12 @@
 # Create your views here.
-from decimal import Decimal
-from typing import List
-
-from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.response import Response
-from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK
-from rest_framework.views import APIView
-
-from .models import UserPreference
-from products.models import UserProduct
-from search_engine.errors import ElasticsearchError
-
-from search_engine.services import SearchService
-
-from kink import inject
-
-from products.models import Product
 
 import logging
 
+from kink import inject
+from rest_framework.response import Response
+from rest_framework.status import HTTP_200_OK
+from rest_framework.views import APIView
+from search_engine.services import SearchService
 
 logger = logging.getLogger(__file__)
 
