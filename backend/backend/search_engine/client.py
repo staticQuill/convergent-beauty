@@ -44,9 +44,9 @@ class SearchClient():
                               }
                             }
                           ],
-                    "filter": [{
+                    "filter": [
                         {"term": {"brand.name": brand}}
-                    }]
+                    ]
                         }
                       }
         return [result["_source"] for result in self.client.search(index=index, query=query)["hits"]["hits"]]
