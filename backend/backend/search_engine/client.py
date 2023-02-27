@@ -36,4 +36,4 @@ class SearchClient():
         query = {"query": {"prefix": {field: {"value": partial}}}}
         if brand:
             query["query"]["bool"] = {"must": {"match": {"brand_name": brand}}}
-        return [result["_source"] for result in self.client.search(index=index, query=query)["hits"]["hits"]]
+        return [result["_source"] for result in self.client.search(index=index, query=query["query"])["hits"]["hits"]]
