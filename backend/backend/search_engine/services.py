@@ -27,4 +27,4 @@ class SearchService():
             return [{"name": result["brand"]["name"]} for result in results]
         elif field == "product":
             results = self.search_client.partial_search(field="name", partial=partial, index=index, brand=brand)
-            return [{"name": result["name"]} for result in results]
+            return {"filtered": [{"name": result["name"]} for result in results], "raw": results}
