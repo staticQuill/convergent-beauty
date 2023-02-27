@@ -21,7 +21,7 @@ class SearchService():
     def get_recommendations(self, sort_list: list, offset: int, index: str) -> list:
         return self.search_client.search(sort=sort_list, offset=offset, index=index)
 
-    def get_autocomplete(self, index: str, field: str, partial: str, brand: str = None) -> List[dict]:
+    def get_autocompletes(self, index: str, field: str, partial: str, brand: str = None) -> List[dict]:
         if field == "brand":
             results = self.search_client.partial_search(field="brand_name", partial=partial, index=index)
             return [{"name": result["brand_name"]} for result in results]
