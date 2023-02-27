@@ -49,5 +49,4 @@ class SearchClient():
                     }]
                         }
                       }
-            }
         return [result["_source"] for result in self.client.search(index=index, query=query)["hits"]["hits"]]
