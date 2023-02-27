@@ -34,6 +34,6 @@ class SearchClient():
 
     def partial_search(self, field: str, partial: str, index: str, brand: str = None) -> List[dict]:
         query = {"query": {"prefix": {field: {"value": partial}}}}
-        if len(brand) > 0:
+        if brand:
             query["query"]["bool"] = {"must": {"match": {"brand_name": brand}}}
         return [result["_source"] for result in self.client.search(index=index, query=query)["hits"]["hits"]]
