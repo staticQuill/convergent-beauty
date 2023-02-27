@@ -1,5 +1,5 @@
 import os
-from typing import Protocol
+from typing import Protocol, List
 
 from kink import inject
 
@@ -31,3 +31,9 @@ class SearchClient():
 
     def search(self, sort: list, offset: int, index: str) -> list:
         return [result["_source"] for result in self.client.search(sort=sort, from_=offset, index=index)["hits"]["hits"]]
+
+    def partial_search(self, field: str, partial: str, index: str, brand: str = None) -> List[dict]:
+        query = {"query": {"prefix": {field: {"value": partial}}}}
+        if brand:
+            query["query"]["bool"] = {"must": [{"match": {"brand_name": brand}}]}
+        return [result["_source"] for result in self.client.search(index=index, query=query)["hits"]["hits"]]

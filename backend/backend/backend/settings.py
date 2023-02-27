@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'products',
     'rest_framework',
     'search_engine',
-    'recommendations'
+    'recommendations',
+    'search'
 ]
 
 MIDDLEWARE = [
