@@ -26,5 +26,5 @@ class SearchService():
             results = self.search_client.partial_search(field="brand.name", partial=partial, index=index)
             return [{"name": result["brand"]["name"]} for result in results]
         elif field == "product":
-            results = self.search_client.partial_search(field="product.name", partial=partial, index=index, brand=brand)
-            return [{"name": result["product"]["name"]} for result in results]
+            results = self.search_client.partial_search(field="name", partial=partial, index=index, brand=brand)
+            return [{"name": result["name"]} for result in results]
