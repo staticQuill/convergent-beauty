@@ -45,7 +45,16 @@ class SearchClient():
                             }
                           ],
                     "filter": [
-                        {"term": {"brand.name": brand}}
+                        {
+                            "nested": {
+                                "path": "brand",
+                                "query": {
+                                    "term": {
+                                        "brand.name": brand
+                                    }
+                                }
+                            }
+                        }
                     ]
                         }
                       }
