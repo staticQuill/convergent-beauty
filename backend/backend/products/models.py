@@ -10,7 +10,7 @@ class Brand(models.Model):
 
 class Product(models.Model):
     class Type(models.TextChoices):
-        CONCEALER = "foundation-concealer", translate("concealer")
+        CONCEALER = "concealer", translate("concealer")
         LIPCOLOR = "lip", translate("lip")
         BLUSH = "cheek", translate("cheek")
         PERFUME = "perfume-cologne", translate("perfume")
@@ -18,6 +18,7 @@ class Product(models.Model):
         EYELINER = "eyeliner", translate("eyeliner")
         MASCARA = "mascara", translate("mascara")
         OTHER = "other", translate("other")
+        HAIR = "hair", translate("hair")
         SKINCARE = "skincare", translate("skincare")
     search_id = models.CharField(max_length=16, unique=True)
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
@@ -27,6 +28,7 @@ class Product(models.Model):
     sentiment_ratings = HStoreField(null=True, blank=True)
     times_logged = models.IntegerField()
     type = models.CharField(max_length=25, choices=Type.choices, default=Type.OTHER)
+
 
 class UserProduct(models.Model):
     class Sentiment(models.TextChoices):
@@ -49,6 +51,8 @@ class UserProduct(models.Model):
         CAKEY = "cakey", translate("cakey")
         ROUGH = "rough", translate("rough")
         WET = "wet", translate("wet")
+        CREAMY = "creamy", translate("creamy")
+        GREASY = "greasy", translate("greasy")
 
     class Scent(models.TextChoices):
         FRUITY = "fruity", translate("fruity")

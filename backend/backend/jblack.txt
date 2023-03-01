@@ -217,6 +217,12 @@
 {"mappings":
     {
         "properties": {
+        "brand": {
+            "type": "nested",
+            "properties": {
+                "name": {"type": "text"}
+            }
+        },
             "texture_ratings": {
             "type": "nested",
             "properties": {
@@ -239,4 +245,39 @@
           }
         }
     }
+
 }
+
+curl -XPUT -H "Content-type: application/json" -d '{"mappings":
+    {
+        "properties": {
+        "brand": {
+            "type": "nested",
+            "properties": {
+                "name": {"type": "text"}
+            }
+        },
+            "texture_ratings": {
+            "type": "nested",
+            "properties": {
+                "sticky": {"type": "integer"},
+                "smooth": {"type": "integer"},
+                "slimy": {"type": "integer"},
+                "cakey": {"type": "integer"},
+                "rough": {"type": "integer"},
+                "wet": {"type": "integer"}
+            }
+          },
+            "scent_ratings": {
+            "type": "nested",
+            "properties": {
+                "fruity": {"type": "integer"},
+                "clean": {"type": "integer"},
+                "floral": {"type": "integer"},
+                "sweet": {"type": "integer"}
+            }
+          }
+        }
+    }
+
+}' 'localhost:9200/lip'

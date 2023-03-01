@@ -1,0 +1,96 @@
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+html {
+  min-height: 100%;
+  background-attachment: fixed;
+  background-size: 120%;
+  background-image: linear-gradient(175deg, rgba(253, 236, 239, 1), rgba(255, 235, 96, .28), rgba(255, 235, 58, .1), rgba(0, 158, 180, 0)),
+  linear-gradient(180deg, rgba(253, 236, 239, 1), rgba(0, 158, 180, .5)),
+  url("flowerpetals.jpg");
+  background-color: lightcoral;
+}
+
+body {
+  font-family: "Red Rose", serif;
+  padding-top: .5em;
+  background: transparent;
+}
+
+#app {
+  background: transparent;
+  padding-bottom: 2em;
+}
+
+.navbar {
+  max-width: 100%;
+  margin: 1em;
+}
+
+.centered-box {
+  text-align: center;
+}
+
+.float-box {
+  font-weight: lighter;
+  max-width: 40em;
+  background-color: rgb(255, 247, 246);
+  margin-bottom: 2em;
+  padding: 1em;
+  border-bottom: solid;
+  border-bottom-width: .2em;
+  border-bottom-color: lightpink;
+  filter: drop-shadow(.5em .5em .5em rgb(50, 100, 120));
+}
+
+.form-control {
+  border-bottom-width: .2em;
+}
+
+.form-control:focus {
+  border-color: lightcoral;
+  border-bottom-width: .2em;
+}
+
+.btn-primary {
+  background: #E07070;
+}
+.btn-primary:not(:active){
+  filter: drop-shadow(0 0 .1em darkred);
+}
+.btn-primary:hover {
+   background: magenta;
+}
+.btn-primary:checked, .btn-primary:active{
+  background: darkmagenta!important;
+}
+
+.list-box-item {
+  text-align: left;
+}
+
+
+
+p.brand-name {
+  font-size: 2.5em;
+  font-weight: bolder;
+  margin: 0em;
+}
+
+p.product-type {
+  font-size: 1em;
+  margin: 0em;
+}
+
+p.product-name {
+  font-size: 2em;
+  margin: 0em;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+}

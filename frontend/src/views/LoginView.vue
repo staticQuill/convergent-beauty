@@ -1,0 +1,65 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
+<script setup lang="ts">
+
+import {userAuthStore} from "@/stores/auth.store";
+
+import {Field, Form} from 'vee-validate';
+
+interface formObject {
+  username: string,
+  password: string
+}
+
+interface errorObj {
+  setErrors: any,
+  username: boolean,
+  password: boolean
+}
+
+const authStore = userAuthStore();
+let errorMsg = localStorage.getItem("error")
+
+function onSubmit(values: formObject, { setErrors }: errorObj) {
+  const username = values.username;
+  const password = values.password;
+
+  return authStore.login(username, password)
+    .catch(error => setErrors({apiError: error, username: false, password: false}))
+}
+
+let errors = {
+  apiError: false,
+  username: false,
+  password: false
+}
+
+let isSubmitting = false
+
+</script>
+
+<template>
+  <main>
+    <div>
+      <h2>
+        Log in
+      </h2>
+      <Form @submit="onSubmit">
+        <div class="form-group float-box">
+          <label>Enter your username</label>
+          <Field name="username" type="text" class="form-control" />
+        </div>
+        <div class="form-group float-box">
+          <label>Enter your password</label>
+          <Field name="password" type="password" class="form-control" />
+        </div>
+        <div class="form-group float-box">
+          <button class="btn btn-primary" :disabled="isSubmitting">
+            <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+            Login
+          </button>
+        </div>
+      </Form>
+    </div>
+  </main>
+</template>
