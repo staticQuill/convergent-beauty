@@ -50,7 +50,7 @@ class SearchClient():
                             "nested": {
                                 "path": "brand",
                                 "query": {
-                                    "term": {
+                                    "match": {
                                         "brand.name": brand.lower()
                                     }
                                 }
