@@ -34,7 +34,6 @@ class SearchClient():
 
     def partial_search(self, field: str, partial: str, index: str, brand: str = None) -> List[dict]:
         query = {"nested": {"path": "brand", "query": {"match_phrase_prefix": {field: partial}}}}
-        print(brand)
         if brand:
             query = {
                 "bool": {
@@ -61,5 +60,4 @@ class SearchClient():
                       }
 
         search_results = self.client.search(index=index, query=query)
-        print(search_results)
         return [result["_source"] for result in search_results["hits"]["hits"]]
