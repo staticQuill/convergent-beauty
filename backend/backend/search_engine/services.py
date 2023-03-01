@@ -21,10 +21,11 @@ class SearchService():
     def get_recommendations(self, sort_list: list, offset: int, index: str) -> list:
         return self.search_client.search(sort=sort_list, offset=offset, index=index)
 
-    def get_autocompletes(self, index: str, field: str, partial: str, brand: str = None) -> List[dict]:
+    def get_autocompletes(self, index: str, field: str, partial: str, brand: str = None) -> dict:
         if field == "brand":
             results = self.search_client.partial_search(field="brand.name", partial=partial, index=index)
-            return [{"name": result["brand"]["name"]} for result in results]
+            return {"filtered": [{"name": result["brand"]["name"]} for result in results], "raw": results}
+
         elif field == "product":
             results = self.search_client.partial_search(field="name", partial=partial, index=index, brand=brand)
             return {"filtered": [{"name": result["name"]} for result in results], "raw": results}
