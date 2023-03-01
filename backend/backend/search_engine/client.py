@@ -59,6 +59,6 @@ class SearchClient():
                         }
                       }
 
-        result = [result["_source"] for result in self.client.search(index=index, query=query)["hits"]["hits"]]
-        print(result)
-        return result
+        search_results = self.client.search(index=index, query=query)
+        print(search_results)
+        return [result["_source"] for result in search_results["hits"]["hits"]]
