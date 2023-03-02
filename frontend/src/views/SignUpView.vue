@@ -56,7 +56,7 @@ let isSubmitting = false
         <br>
         </div>
       </div>
-      <Form @submit="await onSubmit">
+      <Form @submit="onSubmit">
         <div class="form-group float-box">
           <label>Enter your preferred username</label>
           <Field name="username" type="text" class="form-control" />

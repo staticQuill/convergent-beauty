@@ -28,12 +28,6 @@ function onSubmit(values: formObject, { setErrors }: errorObj) {
     .catch(error => setErrors({apiError: error, username: false, password: false}))
 }
 
-let errors = {
-  apiError: false,
-  username: false,
-  password: false
-}
-
 let isSubmitting = false
 
 </script>
@@ -53,7 +47,7 @@ let isSubmitting = false
           <br>
         </div>
       </div>
-      <Form @submit="await onSubmit">
+      <Form @submit="onSubmit">
         <div class="form-group float-box">
           <label>Enter your username</label>
           <Field name="username" type="text" class="form-control" />
