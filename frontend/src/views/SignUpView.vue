@@ -4,14 +4,7 @@
 
 import {userAuthStore} from "@/stores/auth.store";
 
-import {Field, Form} from 'vee-validate';
-
-interface formObject {
-  username: string,
-  email: string,
-  password: string,
-  password2: string
-}
+import {Field, Form, useForm} from 'vee-validate';
 
 const authStore = userAuthStore();
 let errorMsg = {
@@ -21,7 +14,9 @@ let errorMsg = {
 }
 errorMsg = JSON.parse(localStorage.getItem("error") || "{}")
 
-function onSubmit(values: formObject) {
+const { handleSubmit } = useForm<{ username: string, email: string, password: string, password2: string; }>();
+
+const onSubmit = handleSubmit(values => {{
   const username = values.username;
   const email = values.email;
   const password = values.password;
@@ -30,12 +25,7 @@ function onSubmit(values: formObject) {
   return authStore.signup(username, email, password, password2)
 
 }
-
-let errors = {
-  apiError: false,
-  username: false,
-  password: false
-}
+})
 
 let isSubmitting = false
 
