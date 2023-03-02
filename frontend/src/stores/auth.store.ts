@@ -25,7 +25,7 @@ export const userAuthStore = defineStore({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({username: username, password: password})
       };
-      const tokensJson = await fetch("http://188.166.174.54/auth/login/", authRequestOptions);
+      const tokensJson = await fetch("http://188.166.174.54:8080/auth/login/", authRequestOptions);
       if (tokensJson.status == 401) {
         this.error = "We can't find a a user with that username and password"
         localStorage.setItem('error', JSON.stringify({"attempt": [this.error]}))
@@ -52,7 +52,7 @@ export const userAuthStore = defineStore({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({username: username, email: email, password: password, password2: password2})
       };
-      const signupJson = await fetch("http://188.166.174.54/auth/signup/", authRequestOptions);
+      const signupJson = await fetch("http://188.166.174.54:8080/auth/signup/", authRequestOptions);
       if (signupJson.status.toString()[0] != "2") {
         localStorage.setItem('error', JSON.stringify(await signupJson.json()))
         await router.go(0);

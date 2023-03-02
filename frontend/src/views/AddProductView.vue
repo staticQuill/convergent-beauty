@@ -167,7 +167,7 @@ let isSubmitting = false
             <input name="type" type="radio" :value="index.value"/>{{ index.name }}
           </div>
 
-          <button class="btn btn-primary" :disabled="isSubmitting">
+          <button http://188.166.174.54:8080/ :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             choose product type
           </button>
@@ -187,18 +187,18 @@ let isSubmitting = false
             </li>
           </ul>
 
-          <button @click="(brandDefined = brandString)" class="btn btn-primary" :disabled="isSubmitting">
+          <button @click="(brandDefined = brandString)" http://188.166.174.54:8080/ :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             choose brand
           </button>
 
         </form>
         <form >
-          <button @click="resetFields(3)" class="btn btn-primary" :disabled="isSubmitting">
+          <button @click="resetFields(3)" http://188.166.174.54:8080/ :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             go back
           </button>
-          <button @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
+          <button @click="resetFields(10)" http://188.166.174.54:8080/ :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             start over
           </button>
@@ -225,11 +225,11 @@ let isSubmitting = false
         </form>
 
         <form >
-          <button @click="resetFields(2)" class="btn btn-primary" :disabled="isSubmitting">
+          <button @click="resetFields(2)" http://188.166.174.54:8080/ :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             go back
           </button>
-          <button @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
+          <button @click="resetFields(10)" http://188.166.174.54:8080/ :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             start over
           </button>

@@ -20,7 +20,7 @@ async function useRefreshToken () {
     body: JSON.stringify({refresh: authStore.user.refreshToken}),
   };
   console.log(authRequestOptions)
-  const tokenJson = await fetch("http://188.166.174.54/auth/login/refresh/", authRequestOptions);
+  const tokenJson = await fetch("http://188.166.174.54:8080/auth/login/refresh/", authRequestOptions);
   let tokens = await tokenJson.json()
   authStore.user.bearerToken = "Bearer".concat(" ", tokens.access)
   localStorage.setItem('user', JSON.stringify(authStore.user))
@@ -35,7 +35,7 @@ async function generateProfile () {
       method: "POST",
       headers: { "Content-Type": "application/json", "Authorization": authStore.user.bearerToken }
     };
-    recJson = await fetch("http://188.166.174.54/preferences/", authRequestOptions);
+    recJson = await fetch("http://188.166.174.54:8080/preferences/", authRequestOptions);
     if (retryRequest) {
       break
     }
@@ -57,7 +57,7 @@ do {
     method: "GET",
     headers: { "Content-Type": "application/json", "Authorization": authStore.user.bearerToken }
   };
-  recJson = await fetch("http://188.166.174.54/recommendations/", authRequestOptions);
+  recJson = await fetch("http://188.166.174.54:8080/recommendations/", authRequestOptions);
   if (retryRequest) {
     break
   }
