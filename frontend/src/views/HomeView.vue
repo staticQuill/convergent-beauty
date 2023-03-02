@@ -28,12 +28,11 @@ console.log(authStore.user.bearerToken)
         <p>Go to your recommendations</p>
       </div>
       </RouterLink>
-      <div class="float-box centered-box">
-        <p>View your saved products</p>
-      </div>
+      <RouterLink to="/your-products">
       <div class="float-box centered-box">
         <p>View products you own</p>
       </div>
+      </RouterLink>
       <div class="float-box centered-box">
         <p>Adjust your sensory profile</p>
       </div>

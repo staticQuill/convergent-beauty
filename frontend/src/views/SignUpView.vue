@@ -8,24 +8,27 @@ import {Field, Form} from 'vee-validate';
 
 interface formObject {
   username: string,
-  password: string
-}
-
-interface errorObj {
-  setErrors: any,
-  username: boolean,
-  password: boolean
+  email: string,
+  password: string,
+  password2: string
 }
 
 const authStore = userAuthStore();
-let errorMsg = JSON.parse(localStorage.getItem("error") || "{}")
+let errorMsg = {
+  password: [],
+  email: [],
+  username: []
+}
+errorMsg = JSON.parse(localStorage.getItem("error") || "{}")
 
-function onSubmit(values: formObject, { setErrors }: errorObj) {
+function onSubmit(values: formObject) {
   const username = values.username;
+  const email = values.email;
   const password = values.password;
+  const password2 = values.password2;
 
-  return authStore.login(username, password)
-    .catch(error => setErrors({apiError: error, username: false, password: false}))
+  return authStore.signup(username, email, password, password2)
+
 }
 
 let errors = {
@@ -42,25 +45,33 @@ let isSubmitting = false
   <main>
     <div>
       <h2>
-        Log in
+        Create a new account
       </h2>
       <div v-if="errorMsg">
         <div v-for="(error, type) in errorMsg" :key="error">
-          <p v-if="error">There was an error in your {{type}}: </p>
+        <p>There was an error in your {{type}}: </p>
           <ul>
             <li v-for="err in error" :key="err">{{err}}</li>
           </ul>
-          <br>
+        <br>
         </div>
       </div>
       <Form @submit="onSubmit">
         <div class="form-group float-box">
-          <label>Enter your username</label>
+          <label>Enter your preferred username</label>
           <Field name="username" type="text" class="form-control" />
         </div>
         <div class="form-group float-box">
-          <label>Enter your password</label>
+          <label>Enter your email address</label>
+          <Field name="email" type="email" class="form-control" />
+        </div>
+        <div class="form-group float-box">
+          <label>Choose a password</label>
           <Field name="password" type="password" class="form-control" />
+        </div>
+        <div class="form-group float-box">
+          <label>Enter that password again</label>
+          <Field name="password2" type="password" class="form-control" />
         </div>
         <div class="form-group float-box">
           <button class="btn btn-primary" :disabled="isSubmitting">

@@ -1,22 +1,31 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
+import {storeToRefs} from 'pinia';
 
-import { userAuthStore } from '@/stores/auth.store';
+import {userAuthStore} from '@/stores/auth.store';
 
-import { ref } from "vue";
+import {ref} from "vue";
+import {LocationQueryValue, useRoute} from "vue-router";
 import router from "@/router";
-import {useRoute} from "vue-router";
-import {auto} from "@popperjs/core";
-import piniaPluginPersistedState from "pinia-plugin-persistedstate";
 
 const authStore = userAuthStore();
 const { user: authUser } = storeToRefs(authStore);
 
-let indices = ref([{name: "foundation-concealer"}, {name: "lip color"}]);
+let indices = ref([
+  {name: "skincare, like lotion or cleanser", value: "skincare"},
+  {name: "lip color or lip balm", value: "lip"},
+  {name: "foundation or concealer", value: "foundation-concealer"},
+  {name: "blush, bronzer, or other cheek color", value: "cheek"},
+  {name: "body scents, like perfume or cologne", value: "perfume-cologne"},
+  {name: "eyeshadow", value: "eyeshadow"},
+  {name: "eyeliner", value: "eyeliner"},
+  {name: "mascara", value: "mascara"},
+  {name: "hair products, including shampoo and conditioner", value: "hair"},
+  {name: "any other product", value: "other"},
+]);
 
-let suggestions = ref([])
+let suggestions = ref({"filtered": [], "raw": []})
 
 interface formObject {
   brand: string,
@@ -29,7 +38,7 @@ async function useRefreshToken () {
   let authRequestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({refresh: JSON.parse(authStore.user.refreshToken)}),
+    body: JSON.stringify({refresh: authStore.user.refreshToken.replace(/['"]+/g, '')}),
   };
   console.log(authRequestOptions)
   const tokenJson = await fetch("http://188.166.174.54/auth/login/refresh/", authRequestOptions);
@@ -44,9 +53,17 @@ let productString = ref("");
 let listingBrands = false
 let listingProducts = false
 
-let typeDefined: string = JSON.stringify(useRoute().query.type) || localStorage.getItem("type") || ""
-let brandDefined: string = JSON.stringify(useRoute().query.brand) || localStorage.getItem("brand") || ""
-let productDefined: string = JSON.stringify(useRoute().query.product) || localStorage.getItem("product") || ""
+function getDefinedString(queryParam: string | LocationQueryValue[] | LocationQueryValue, definer: string) {
+  if (queryParam) {
+    return queryParam.toString().replace(/['"]+/g, '')
+  } else {
+    return localStorage.getItem(definer) || ""
+  }
+}
+
+let typeDefined: string = getDefinedString(useRoute().query.type, "type")
+let brandDefined: string = getDefinedString(useRoute().query.brand, "brand")
+let productDefined: string = getDefinedString(useRoute().query.product, "product")
 
 localStorage.setItem("type", typeDefined)
 localStorage.setItem("brand", brandDefined)
@@ -55,62 +72,53 @@ localStorage.setItem("product", productDefined)
 console.log(typeDefined)
 console.log(brandDefined)
 console.log(productDefined)
-const mockBrands = [
-  {name: "Estee Lauder"},
-  {name: "Estimation"},
-]
-
-const mockProducts = [
-  {name: "Divine Lipcolor"},
-  {name: "Matte Lipcolor"},
-]
 
 let autocompleteResults = ref([{name: "start typing to see suggestions"}])
 
 
 async function getBrandSuggestions () {
-  if (brandString.value.length >= 3) {
+  if (brandString.value.length >= 1) {
     let retryRequest = false
     do {
-      let endpointWithQuery = "http://188.166.174.54/search".concat("?brand=", brandString.value, "&type=", typeDefined)
+      let endpointWithQuery = "http://188.166.174.54/search/autocomplete".concat("?field=brand&partial=", brandString.value, "&type=", typeDefined)
       let authRequestOptions = {
         method: "GET",
         headers: {"Content-Type": "application/json", "Authorization": authStore.user.bearerToken}
       };
-      /* let suggestionJson = await fetch(endpointWithQuery, authRequestOptions);
+      let suggestionJson = await fetch(endpointWithQuery, authRequestOptions);
       if (retryRequest && suggestionJson.status === 401) {
         break
       } else if (suggestionJson.status === 401) {
         retryRequest = await useRefreshToken()
       } else {
         suggestions.value = await suggestionJson.json()
-      }*/
+      }
     } while (retryRequest);
     listingBrands = true;
-    autocompleteResults.value = mockBrands;
+    autocompleteResults.value = suggestions.value.filtered
   }
 }
 
 async function getProductSuggestions () {
-  if (productString.value.length >= 3) {
+  if (productString.value.length >= 1) {
     let retryRequest = false
     do {
-      let endpointWithQuery = "http://188.166.174.54/search".concat("?brand=", brandString.value, "&type=", typeDefined)
+      let endpointWithQuery = "http://188.166.174.54/search/autocomplete".concat("?field=product&brand=", brandDefined, "&type=", typeDefined, "&partial=", productString.value)
       let authRequestOptions = {
         method: "GET",
         headers: {"Content-Type": "application/json", "Authorization": authStore.user.bearerToken}
       };
-      /* let suggestionJson = await fetch(endpointWithQuery, authRequestOptions);
+      let suggestionJson = await fetch(endpointWithQuery, authRequestOptions);
       if (retryRequest && suggestionJson.status === 401) {
         break
       } else if (suggestionJson.status === 401) {
         retryRequest = await useRefreshToken()
       } else {
         suggestions.value = await suggestionJson.json()
-      }*/
+      }
     } while (retryRequest);
-    autocompleteResults.value = mockProducts;
     listingProducts = true;
+    autocompleteResults.value = suggestions.value.filtered
   }
 }
 
@@ -136,6 +144,13 @@ function resetFields (levels: number) {
   if (levels > 2) {
     let typeDefined: string = ""
     localStorage.setItem("type", typeDefined)
+    let scentsDefined: string = ""
+    localStorage.setItem("scentsDefined", scentsDefined)
+    let texturesDefined: string = ""
+    localStorage.setItem("texturesDefined", texturesDefined)
+    let sentimentsDefined: string = ""
+    localStorage.setItem("sentimentsDefined", sentimentsDefined)
+    router.push("/new-product")
   }
 }
 
@@ -149,7 +164,7 @@ let isSubmitting = false
       <div class="float-box list-block-item">
         <form >
           <div v-for="index in indices" :key="index">
-            <input name="type" type="radio" :value="index.name"/>{{ index.name }}
+            <input name="type" type="radio" :value="index.value"/>{{ index.name }}
           </div>
 
           <button class="btn btn-primary" :disabled="isSubmitting">
@@ -161,7 +176,7 @@ let isSubmitting = false
     </div>
 
     <div v-if="typeDefined.length > 0 && brandDefined.length === 0">
-      <h1>What brand of {{ typeDefined }} do you wish to enter?</h1>
+      <h1>What brand do you wish to enter?</h1>
       <div class="float-box list-block-item">
         <form >
           <label>Start typing the brand name:</label>
@@ -203,7 +218,7 @@ let isSubmitting = false
             </li>
           </ul>
 
-          <router-link :to="{ path: '/product-notes', query: {brand: brandDefined, product: productDefined} }">
+          <router-link :to="{ path: '/product-notes', query: {brand: brandDefined, product: productString} }">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             choose product
           </router-link>
