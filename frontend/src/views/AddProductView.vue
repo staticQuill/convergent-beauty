@@ -6,7 +6,8 @@ import {storeToRefs} from 'pinia';
 import {userAuthStore} from '@/stores/auth.store';
 
 import {ref} from "vue";
-import {LocationQueryValue, useRoute} from "vue-router";
+import type {LocationQueryValue} from "vue-router";
+import {useRoute} from "vue-router";
 import router from "@/router";
 
 const authStore = userAuthStore();
@@ -162,8 +163,8 @@ let isSubmitting = false
     <div v-if="typeDefined.length === 0 && brandDefined.length === 0">
       <h1>What type of product do you want to enter?</h1>
       <div class="float-box list-block-item">
-        <form >
-          <div v-for="index in indices" :key="index">
+        <form>
+          <div v-for="index in indices" :key="index.value">
             <input name="type" type="radio" :value="index.value"/>{{ index.name }}
           </div>
 

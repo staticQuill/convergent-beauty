@@ -53,7 +53,7 @@ let isSubmitting = false
           <br>
         </div>
       </div>
-      <Form @submit="onSubmit">
+      <Form @submit="await onSubmit">
         <div class="form-group float-box">
           <label>Enter your username</label>
           <Field name="username" type="text" class="form-control" />

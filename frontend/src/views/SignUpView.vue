@@ -48,7 +48,7 @@ let isSubmitting = false
         Create a new account
       </h2>
       <div v-if="errorMsg">
-        <div v-for="(error, type) in errorMsg" :key="error">
+        <div v-for="(error, type) in errorMsg" :key="type">
         <p>There was an error in your {{type}}: </p>
           <ul>
             <li v-for="err in error" :key="err">{{err}}</li>
@@ -56,7 +56,7 @@ let isSubmitting = false
         <br>
         </div>
       </div>
-      <Form @submit="onSubmit">
+      <Form @submit="await onSubmit">
         <div class="form-group float-box">
           <label>Enter your preferred username</label>
           <Field name="username" type="text" class="form-control" />

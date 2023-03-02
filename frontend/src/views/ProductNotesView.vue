@@ -5,7 +5,8 @@ import { storeToRefs } from 'pinia';
 import { userAuthStore } from '@/stores/auth.store';
 
 import { ref } from "vue";
-import {LocationQueryValue, useRoute} from "vue-router";
+import type {LocationQueryValue} from "vue-router";
+import {useRoute} from "vue-router";
 import router from "@/router";
 
 const authStore = userAuthStore();
@@ -194,7 +195,7 @@ let generalFeelList = generalSentiment.value.split(",")
         <h1>How would you describe the <b>texture</b> of the {{productDefined}} by {{brandDefined}}? Pick at least one or "not applicable".</h1>
           <div class="float-box list-block-item">
           <form >
-            <div v-for="texture in textures" :key="texture">
+            <div v-for="texture in textures" :key="texture.value">
               <input name="texturesDefined" type="checkbox" :value="texture.value"/>{{ texture.name }}
             </div>
 
@@ -221,7 +222,7 @@ let generalFeelList = generalSentiment.value.split(",")
         <h1>How would you describe the <b>scent</b> of the {{productDefined}} by {{brandDefined}}? Pick at least one or "not applicable".</h1>
         <div class="float-box list-block-item">
           <form >
-            <div v-for="scent in scents" :key="scent">
+            <div v-for="scent in scents" :key="scent.value">
               <input name="scentsDefined" type="checkbox" :value="scent.value"/>{{ scent.name }}
             </div>
 
@@ -250,17 +251,17 @@ let generalFeelList = generalSentiment.value.split(",")
           <form >
             <br>
             <p>Scent:</p>
-            <div v-for="sentiment in scentSentiments" :key="sentiment">
+            <div v-for="sentiment in scentSentiments" :key="sentiment.value">
               <input name="scentFeels" type="checkbox" :value="sentiment.value" />{{ sentiment.text }}
             </div>
             <br>
             <p>Texture:</p>
-            <div v-for="sentiment in textureSentiments" :key="sentiment">
+            <div v-for="sentiment in textureSentiments" :key="sentiment.value">
               <input name="textureFeels" type="checkbox" :value="sentiment.value" />{{ sentiment.text }}
             </div>
             <br>
             <p>Overall:</p>
-            <div v-for="sentiment in generalSentiments" :key="sentiment">
+            <div v-for="sentiment in generalSentiments" :key="sentiment.value">
               <input name="generalFeels" type="checkbox" :value="sentiment.value" />{{ sentiment.text }}
             </div>
             <br>
