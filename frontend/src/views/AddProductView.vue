@@ -41,7 +41,7 @@ async function useRefreshToken () {
     body: JSON.stringify({refresh: authStore.user.refreshToken.replace(/['"]+/g, '')}),
   };
   console.log(authRequestOptions)
-  const tokenJson = await fetch("http://188.166.174.54/auth/login/refresh/", authRequestOptions);
+  const tokenJson = await fetch("http://188.166.174.54:8080/auth/login/refresh/", authRequestOptions);
   let tokens = await tokenJson.json()
   authStore.user.bearerToken = "Bearer".concat(" ", tokens.access)
   localStorage.setItem('user', JSON.stringify(authStore.user))
@@ -80,7 +80,7 @@ async function getBrandSuggestions () {
   if (brandString.value.length >= 1) {
     let retryRequest = false
     do {
-      let endpointWithQuery = "http://188.166.174.54/search/autocomplete".concat("?field=brand&partial=", brandString.value, "&type=", typeDefined)
+      let endpointWithQuery = "http://188.166.174.54:8080/search/autocomplete".concat("?field=brand&partial=", brandString.value, "&type=", typeDefined)
       let authRequestOptions = {
         method: "GET",
         headers: {"Content-Type": "application/json", "Authorization": authStore.user.bearerToken}
@@ -103,7 +103,7 @@ async function getProductSuggestions () {
   if (productString.value.length >= 1) {
     let retryRequest = false
     do {
-      let endpointWithQuery = "http://188.166.174.54/search/autocomplete".concat("?field=product&brand=", brandDefined, "&type=", typeDefined, "&partial=", productString.value)
+      let endpointWithQuery = "http://188.166.174.54:8080/search/autocomplete".concat("?field=product&brand=", brandDefined, "&type=", typeDefined, "&partial=", productString.value)
       let authRequestOptions = {
         method: "GET",
         headers: {"Content-Type": "application/json", "Authorization": authStore.user.bearerToken}
@@ -167,7 +167,7 @@ let isSubmitting = false
             <input name="type" type="radio" :value="index.value"/>{{ index.name }}
           </div>
 
-          <button http://188.166.174.54:8080/ :disabled="isSubmitting">
+          <button class="btn btn-primary" :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             choose product type
           </button>
@@ -187,18 +187,18 @@ let isSubmitting = false
             </li>
           </ul>
 
-          <button @click="(brandDefined = brandString)" http://188.166.174.54:8080/ :disabled="isSubmitting">
+          <button @click="(brandDefined = brandString)" class="btn btn-primary" :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             choose brand
           </button>
 
         </form>
         <form >
-          <button @click="resetFields(3)" http://188.166.174.54:8080/ :disabled="isSubmitting">
+          <button @click="resetFields(3)" class="btn btn-primary" :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             go back
           </button>
-          <button @click="resetFields(10)" http://188.166.174.54:8080/ :disabled="isSubmitting">
+          <button @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             start over
           </button>
@@ -225,11 +225,11 @@ let isSubmitting = false
         </form>
 
         <form >
-          <button @click="resetFields(2)" http://188.166.174.54:8080/ :disabled="isSubmitting">
+          <button @click="resetFields(2)" class="btn btn-primary" :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             go back
           </button>
-          <button @click="resetFields(10)" http://188.166.174.54:8080/ :disabled="isSubmitting">
+          <button @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             start over
           </button>
