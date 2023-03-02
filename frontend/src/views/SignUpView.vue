@@ -46,7 +46,7 @@ let isSubmitting = false
         <br>
         </div>
       </div>
-      <Form @submit="onSubmit">
+      <form @submit="onSubmit">
         <div class="form-group float-box">
           <label>Enter your preferred username</label>
           <Field name="username" type="text" class="form-control" />
@@ -69,7 +69,7 @@ let isSubmitting = false
             Login
           </button>
         </div>
-      </Form>
+      </form>
     </div>
   </main>
 </template>
