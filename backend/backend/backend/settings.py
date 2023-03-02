@@ -46,10 +46,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'search_engine',
     'recommendations',
-    'search'
+    'search',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -78,6 +81,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
+
+CORS_ALLOWED_ORIGINS = ["localhost", "188.166.174.54", "convergent.beauty", "www.convergent.beauty"]
 
 
 # Database
