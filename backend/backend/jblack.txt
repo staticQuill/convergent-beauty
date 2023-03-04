@@ -248,8 +248,8 @@
 
 }
 
-curl -XPUT -H "Content-type: application/json" -d '{"mappings":
-    {
+curl -XPUT -H "Content-type: application/json" -d '{
+"mappings": {
         "properties": {
         "brand": {
             "type": "nested",
@@ -265,7 +265,10 @@ curl -XPUT -H "Content-type: application/json" -d '{"mappings":
                 "slimy": {"type": "integer"},
                 "cakey": {"type": "integer"},
                 "rough": {"type": "integer"},
-                "wet": {"type": "integer"}
+                "wet": {"type": "integer"},
+                "greasy": {"type": "integer"},
+                "creamy": {"type": "integer"},
+                "light": {"type": "integer"}
             }
           },
             "scent_ratings": {
@@ -278,6 +281,30 @@ curl -XPUT -H "Content-type: application/json" -d '{"mappings":
             }
           }
         }
-    }
+        }
+}' 'localhost:9200/eyeshadow_v2'
 
-}' 'localhost:9200/lip'
+lip
+foundation-concealer
+cheek
+perfume-cologne
+eyeshadow
+eyeliner
+mascara
+other
+hair
+skincare
+
+
+curl -XDELETE localhost:9200/skincare
+
+curl -XPOST -H "Content-type: application/json" -d '{
+  "actions": [
+    {
+      "add": {
+        "index": "skincare_v2",
+        "alias": "skincare_alias"
+      }
+    }
+  ]
+}' 'localhost:9200/_aliases'

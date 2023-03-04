@@ -112,13 +112,6 @@ const generalSentiments = [
 
 
 function resetFields (levels: number) {
-  if (levels > 0) {
-    let defaultSentiment: string = ""
-    localStorage.setItem("scentSentiment", defaultSentiment)
-    localStorage.setItem("textureSentiment", defaultSentiment)
-    localStorage.setItem("generalSentiment", defaultSentiment)
-    localStorage.setItem("generalNotes", defaultSentiment)
-  }
   if (levels > 1) {
     let scentsDefined: string = ""
     localStorage.setItem("scentsDefined", scentsDefined)
@@ -134,6 +127,13 @@ function resetFields (levels: number) {
     localStorage.setItem("brand", brandDefined)
     let typeDefined: string = ""
     localStorage.setItem("type", typeDefined)
+  }
+  if (levels > 0) {
+    let defaultSentiment: string = ""
+    localStorage.setItem("scentSentiment", defaultSentiment)
+    localStorage.setItem("textureSentiment", defaultSentiment)
+    localStorage.setItem("generalSentiment", defaultSentiment)
+    localStorage.setItem("generalNotes", defaultSentiment)
     router.push("/new-product")
   }
 }
@@ -195,26 +195,27 @@ let generalFeelList = generalSentiment.value.split(",")
         <h1>How would you describe the <b>texture</b> of the {{productDefined}} by {{brandDefined}}? Pick at least one or "not applicable".</h1>
           <div class="float-box list-block-item">
           <form >
-            <div v-for="texture in textures" :key="texture.value">
+            <div v-for="texture in textures" class="input-list" :key="texture.value">
               <input name="texturesDefined" type="checkbox" :value="texture.value"/>{{ texture.name }}
             </div>
 
-            <button class="btn btn-primary" :disabled="isSubmitting">
+            <button class="btn btn-primary dropdown-submit" :disabled="isSubmitting">
               <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
               set texture notes
             </button>
           </form>
-
-          <form >
-            <button @click="resetFields(4)" class="btn btn-primary" :disabled="isSubmitting">
-              <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
-              go back
-            </button>
-            <button @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
-              <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
-              start over
-            </button>
-          </form>
+            <br>
+            <br>
+            <form class="back-buttons">
+              <button type="button" @click="resetFields(2)" class="btn btn-primary" :disabled="isSubmitting">
+                <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+                go back
+              </button>
+              <button type="button" @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
+                <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+                start over
+              </button>
+            </form>
         </div>
       </div>
 
@@ -222,22 +223,22 @@ let generalFeelList = generalSentiment.value.split(",")
         <h1>How would you describe the <b>scent</b> of the {{productDefined}} by {{brandDefined}}? Pick at least one or "not applicable".</h1>
         <div class="float-box list-block-item">
           <form >
-            <div v-for="scent in scents" :key="scent.value">
+            <div v-for="scent in scents" class="input-list" :key="scent.value">
               <input name="scentsDefined" type="checkbox" :value="scent.value"/>{{ scent.name }}
             </div>
-
             <button class="btn btn-primary" :disabled="isSubmitting">
               <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
               set scent notes
             </button>
           </form>
-
-          <form >
-            <button @click="resetFields(3)" class="btn btn-primary" :disabled="isSubmitting">
+          <br>
+          <br>
+          <form class="back-buttons">
+            <button type="button" @click="resetFields(2)" class="btn btn-primary" :disabled="isSubmitting">
               <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
               go back
             </button>
-            <button @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
+            <button type="button" @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
               <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
               start over
             </button>
@@ -251,17 +252,17 @@ let generalFeelList = generalSentiment.value.split(",")
           <form >
             <br>
             <p>Scent:</p>
-            <div v-for="sentiment in scentSentiments" :key="sentiment.value">
+            <div v-for="sentiment in scentSentiments" class="input-list" :key="sentiment.value">
               <input name="scentFeels" type="checkbox" :value="sentiment.value" />{{ sentiment.text }}
             </div>
             <br>
             <p>Texture:</p>
-            <div v-for="sentiment in textureSentiments" :key="sentiment.value">
+            <div v-for="sentiment in textureSentiments" class="input-list" :key="sentiment.value">
               <input name="textureFeels" type="checkbox" :value="sentiment.value" />{{ sentiment.text }}
             </div>
             <br>
             <p>Overall:</p>
-            <div v-for="sentiment in generalSentiments" :key="sentiment.value">
+            <div v-for="sentiment in generalSentiments" class="input-list" :key="sentiment.value">
               <input name="generalFeels" type="checkbox" :value="sentiment.value" />{{ sentiment.text }}
             </div>
             <br>
@@ -274,13 +275,13 @@ let generalFeelList = generalSentiment.value.split(",")
             </button>
           </form>
           <br>
-          <form >
-            <button @click="resetFields(2)" class="btn btn-primary" :disabled="isSubmitting">
+          <br>
+          <form class="back-buttons">
+            <button type="button" @click="resetFields(2)" class="btn btn-primary" :disabled="isSubmitting">
               <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
               go back
             </button>
-            <br>
-            <button @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
+            <button type="button" @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
               <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
               start over
             </button>
@@ -314,13 +315,14 @@ let generalFeelList = generalSentiment.value.split(",")
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             submit this product
           </button>
-          <form >
-            <button @click="resetFields(1)" class="btn btn-primary" :disabled="isSubmitting">
+          <br>
+          <br>
+          <form  class="back-buttons">
+            <button type="button" @click="resetFields(2)" class="btn btn-primary" :disabled="isSubmitting">
               <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
               go back
             </button>
-            <br>
-            <button @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
+            <button type="button" @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
               <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
               start over
             </button>

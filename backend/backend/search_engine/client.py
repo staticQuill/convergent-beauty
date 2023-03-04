@@ -15,7 +15,12 @@ class SearchClient():
         self.client = Elasticsearch(
             "http://localhost:9200",
             basic_auth=("elastic", elastic_password)
-                               )
+                   )
+
+    def convert_index_to_alias(self, index: str) -> str:
+        if "-" in index:
+            index = index.split("-")[0]
+        return index + "_alias"
 
     def create(self, index: str, id: str, product: dict) -> None:
         try:
@@ -34,6 +39,7 @@ class SearchClient():
 
     def partial_search(self, field: str, partial: str, index: str, brand: str = None) -> List[dict]:
         query = {"nested": {"path": "brand", "query": {"match_phrase_prefix": {field: partial}}}}
+        alias = self.convert_index_to_alias(index=index)
         if brand:
             query = {
                 "bool": {
@@ -59,5 +65,5 @@ class SearchClient():
                         }
                       }
 
-        search_results = self.client.search(index=index, query=query)
+        search_results = self.client.search(index=alias, query=query)
         return [result["_source"] for result in search_results["hits"]["hits"]]

@@ -164,7 +164,7 @@ let isSubmitting = false
       <h1>What type of product do you want to enter?</h1>
       <div class="float-box list-block-item">
         <form>
-          <div v-for="index in indices" :key="index.value">
+          <div v-for="index in indices" class="input-list" :key="index.value">
             <input name="type" type="radio" :value="index.value"/>{{ index.name }}
           </div>
 
@@ -181,20 +181,20 @@ let isSubmitting = false
       <div class="float-box list-block-item">
         <form >
           <label>Start typing the brand name:</label>
-          <input name="brand" type="text" v-model="brandString" v-on:input="getBrandSuggestions" autocomplete="true" />
-          <ul v-if="listingBrands">
-            <li v-for="result in autocompleteResults" :key="result.name" v-on:click="setBrand(result.name)">
-              {{ result.name }}
-            </li>
-          </ul>
+          <input list="brand" name="brand" type="text" v-model="brandString" v-on:input="getBrandSuggestions" autocomplete="true" />
+          <datalist name="brand" id="brand">
+            <option v-for="result in autocompleteResults" :key="result.name" v-on:click="setBrand(result.name)">{{result.name}}</option>
+          </datalist>
 
-          <button @click="(brandDefined = brandString)" class="btn btn-primary" :disabled="isSubmitting">
+          <button @click="(brandDefined = brandString)" class="btn btn-primary dropdown-submit" :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             choose brand
           </button>
 
         </form>
-        <form >
+        <br>
+        <br>
+        <form class="back-buttons">
           <button @click="resetFields(3)" class="btn btn-primary" :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             go back
@@ -212,20 +212,21 @@ let isSubmitting = false
       <div class="float-box list-block-item">
         <form>
           <label>Start typing the product name:</label>
-          <input name="product" type="text" v-model="productString" v-on:input="getProductSuggestions" autocomplete="true" />
-          <ul v-if="listingProducts">
-            <li v-for="result in autocompleteResults" :key="result.name" v-on:click="setProduct(result.name)">
-              {{ result.name }}
-            </li>
-          </ul>
+          <input list="product" name="product" type="text" v-model="productString" v-on:input="getProductSuggestions" autocomplete="true" />
+          <datalist name="product" id="product">
+            <option v-for="result in autocompleteResults" :key="result.name" v-on:click="setProduct(result.name)">{{result.name}}</option>
+          </datalist>
 
           <router-link :to="{ path: '/product-notes', query: {brand: brandDefined, product: productString} }">
-            <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
-            choose product
+            <button type="button" class="btn btn-primary dropdown-submit" :disabled="isSubmitting">
+              <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+              choose product
+            </button>
           </router-link>
         </form>
-
-        <form >
+        <br>
+        <br>
+        <form class="back-buttons">
           <button @click="resetFields(2)" class="btn btn-primary" :disabled="isSubmitting">
             <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             go back
