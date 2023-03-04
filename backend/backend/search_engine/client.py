@@ -23,19 +23,27 @@ class SearchClient():
         return index + "_alias"
 
     def create(self, index: str, id: str, product: dict) -> None:
+        index = next(iter(self.client.indices.get_alias(
+            name=self.convert_index_to_alias(index=index)
+        )))
+        alias = self.convert_index_to_alias(index=index)
         try:
-            self.client.create(index=index, id=id, document=product)
+            self.client.create(index=alias, id=id, document=product)
         except (ApiError) as e:
             raise ElasticsearchError(str(e))
 
     def update(self, index: str, id: str, product: dict) -> None:
+        index = next(iter(self.client.indices.get_alias(
+            name=self.convert_index_to_alias(index=index)
+        )))
         try:
             self.client.update(index=index, id=id, doc=product)
         except (ApiError) as e:
             raise ElasticsearchError(str(e))
 
     def search(self, sort: list, offset: int, index: str) -> list:
-        return [result["_source"] for result in self.client.search(sort=sort, from_=offset, index=index)["hits"]["hits"]]
+        alias = self.convert_index_to_alias(index=index)
+        return [result["_source"] for result in self.client.search(sort=sort, from_=offset, index=alias)["hits"]["hits"]]
 
     def partial_search(self, field: str, partial: str, index: str, brand: str = None) -> List[dict]:
         query = {"nested": {"path": "brand", "query": {"match_phrase_prefix": {field: partial}}}}
