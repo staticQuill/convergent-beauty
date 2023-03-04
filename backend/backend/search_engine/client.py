@@ -18,6 +18,8 @@ class SearchClient():
                    )
 
     def convert_index_to_alias(self, index: str) -> str:
+        if index == "":
+            return ""
         if "-" in index:
             index = index.split("-")[0]
         return index + "_alias"
