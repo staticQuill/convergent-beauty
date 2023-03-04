@@ -17,17 +17,17 @@ class SearchClient():
             basic_auth=("elastic", elastic_password)
                    )
 
-    def convert_index_to_alias(self, index: str) -> str:
-        if index == "":
-            return ""
+    def convert_index_to_alias(self, index: str = None) -> str:
+        if index in ["", "*,-.*,", None]:
+            return "*,-.*,"
         if "-" in index:
             index = index.split("-")[0]
-        return index + "_alias"
+        alias = index + "_alias"
+        index = next(iter(self.client.indices.get_alias(
+            name=alias)))
+        return index
 
     def create(self, index: str, id: str, product: dict) -> None:
-        index = next(iter(self.client.indices.get_alias(
-            name=self.convert_index_to_alias(index=index)
-        )))
         alias = self.convert_index_to_alias(index=index)
         try:
             self.client.create(index=alias, id=id, document=product)
