@@ -83,7 +83,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-CORS_ALLOWED_ORIGINS = ["https://188.166.174.54", "https://convergent.beauty", "https://www.convergent.beauty"]
+CORS_ALLOWED_ORIGINS = ["https://convergent.beauty"]
 
 
 # Database
