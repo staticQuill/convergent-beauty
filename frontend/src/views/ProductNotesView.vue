@@ -76,6 +76,7 @@ const textures = [
   {name: "wet", value: "wet"},
   {name: "creamy", value: "creamy"},
   {name: "greasy or oily", value: "greasy"},
+  {name: "light or delicate", value: "light"},
   {name: "not applicable/none of the above", value: "na"}
 ]
 
