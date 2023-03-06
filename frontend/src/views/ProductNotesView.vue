@@ -21,7 +21,7 @@ async function useRefreshToken () {
     body: JSON.stringify({refresh: JSON.parse(authStore.user.refreshToken)}),
   };
   console.log(authRequestOptions)
-  const tokenJson = await fetch("https://188.166.174.54:8080/auth/login/refresh/", authRequestOptions);
+  const tokenJson = await fetch("https://convergent.beauty/api/auth/login/refresh/", authRequestOptions);
   let tokens = await tokenJson.json()
   authStore.user.bearerToken = "Bearer".concat(" ", tokens.access)
   localStorage.setItem('user', JSON.stringify(authStore.user))
@@ -45,7 +45,7 @@ async function postProductSubmit () {
   })
   console.log(productJson)
   do {
-    let endpoint = "https://188.166.174.54:8080/user-products/"
+    let endpoint = "https://convergent.beauty/api/user-products/"
     let authRequestOptions = {
       method: "POST",
       headers: {"Content-Type": "application/json", "Authorization": authStore.user.bearerToken},

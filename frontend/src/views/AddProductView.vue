@@ -42,7 +42,7 @@ async function useRefreshToken () {
     body: JSON.stringify({refresh: authStore.user.refreshToken.replace(/['"]+/g, '')}),
   };
   console.log(authRequestOptions)
-  const tokenJson = await fetch("https://188.166.174.54:8080/auth/login/refresh/", authRequestOptions);
+  const tokenJson = await fetch("https://convergent.beauty/api/auth/login/refresh/", authRequestOptions);
   let tokens = await tokenJson.json()
   authStore.user.bearerToken = "Bearer".concat(" ", tokens.access)
   localStorage.setItem('user', JSON.stringify(authStore.user))
@@ -81,7 +81,7 @@ async function getBrandSuggestions () {
   if (brandString.value.length >= 1) {
     let retryRequest = false
     do {
-      let endpointWithQuery = "https://188.166.174.54:8080/search/autocomplete".concat("?field=brand&partial=", brandString.value, "&type=", typeDefined)
+      let endpointWithQuery = "https://convergent.beauty/api/search/autocomplete".concat("?field=brand&partial=", brandString.value, "&type=", typeDefined)
       let authRequestOptions = {
         method: "GET",
         headers: {"Content-Type": "application/json", "Authorization": authStore.user.bearerToken}
@@ -104,7 +104,7 @@ async function getProductSuggestions () {
   if (productString.value.length >= 1) {
     let retryRequest = false
     do {
-      let endpointWithQuery = "https://188.166.174.54:8080/search/autocomplete".concat("?field=product&brand=", brandDefined, "&type=", typeDefined, "&partial=", productString.value)
+      let endpointWithQuery = "https://convergent.beauty/api/search/autocomplete".concat("?field=product&brand=", brandDefined, "&type=", typeDefined, "&partial=", productString.value)
       let authRequestOptions = {
         method: "GET",
         headers: {"Content-Type": "application/json", "Authorization": authStore.user.bearerToken}
