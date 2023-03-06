@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["188.166.174.54", "convergent.beauty", "www.convergent.beauty"]
+ALLOWED_HOSTS = ["https://188.166.174.54", "https://convergent.beauty", "https://www.convergent.beauty"]
 
 
 # Application definition
