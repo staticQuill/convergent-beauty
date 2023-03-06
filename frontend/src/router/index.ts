@@ -68,7 +68,7 @@ router.beforeEach(async (to) => {
       body: JSON.stringify({refresh: auth.user.refreshToken}),
     };
     console.log(authRequestOptions)
-    const tokenJson = await fetch("http://188.166.174.54:8080/auth/login/refresh/", authRequestOptions);
+    const tokenJson = await fetch("https://188.166.174.54:8080/auth/login/refresh/", authRequestOptions);
     const tokens = await tokenJson.json()
     auth.user.bearerToken = "Bearer".concat(" ", tokens.access)
     localStorage.setItem('user', JSON.stringify(auth.user))
