@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'recommendations',
     'search',
     'corsheaders',
+    'profanity',
 ]
 
 MIDDLEWARE = [

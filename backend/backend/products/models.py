@@ -3,6 +3,8 @@ from django.contrib.postgres.fields import ArrayField, HStoreField
 from django.db import models
 from django.utils.translation import gettext_lazy as translate
 
+from profanity.validators import validate_is_profane
+
 
 class Brand(models.Model):
     name = models.CharField(max_length=100)
@@ -21,8 +23,8 @@ class Product(models.Model):
         HAIR = "hair", translate("hair")
         SKINCARE = "skincare", translate("skincare")
     search_id = models.CharField(max_length=16, unique=True)
-    brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
-    name = models.CharField(max_length=150)
+    brand = models.ForeignKey(Brand, on_delete=models.PROTECT, validators=[validate_is_profane])
+    name = models.CharField(max_length=150, validators=[validate_is_profane])
     texture_ratings = HStoreField(null=True, blank=True)
     scent_ratings = HStoreField(null=True, blank=True)
     sentiment_ratings = HStoreField(null=True, blank=True)
