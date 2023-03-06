@@ -7,7 +7,7 @@ from profanity.validators import validate_is_profane
 
 
 class Brand(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, validators=[validate_is_profane])
 
 
 class Product(models.Model):
@@ -23,7 +23,7 @@ class Product(models.Model):
         HAIR = "hair", translate("hair")
         SKINCARE = "skincare", translate("skincare")
     search_id = models.CharField(max_length=16, unique=True)
-    brand = models.ForeignKey(Brand, on_delete=models.PROTECT, validators=[validate_is_profane])
+    brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
     name = models.CharField(max_length=150, validators=[validate_is_profane])
     texture_ratings = HStoreField(null=True, blank=True)
     scent_ratings = HStoreField(null=True, blank=True)
