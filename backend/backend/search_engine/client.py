@@ -20,6 +20,8 @@ class SearchClient():
     def convert_index_to_alias(self, index: str = None) -> str:
         if index in ["", "*,-.*,", None]:
             return "*,-.*,"
+        if "_" in index:
+            index = index.split("_")[0]
         if "-" in index:
             index = index.split("-")[0]
         alias = index + "_alias"
@@ -35,9 +37,7 @@ class SearchClient():
             raise ElasticsearchError(str(e))
 
     def update(self, index: str, id: str, product: dict) -> None:
-        index = next(iter(self.client.indices.get_alias(
-            name=self.convert_index_to_alias(index=index)
-        )))
+        index = self.convert_index_to_alias(index=index)
         try:
             self.client.update(index=index, id=id, doc=product)
         except (ApiError) as e:
