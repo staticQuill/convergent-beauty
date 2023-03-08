@@ -17,7 +17,7 @@ let indices = ref([
   {name: "skincare, like lotion or cleanser", value: "skincare"},
   {name: "lip color or lip balm", value: "lip"},
   {name: "foundation or concealer", value: "foundation-concealer"},
-  {name: "blush, bronzer, or other cheek color", value: "cheek"},
+  {name: "blush, bronzer, other cheek color, or other powder", value: "cheek"},
   {name: "body scents, like perfume or cologne", value: "perfume-cologne"},
   {name: "eyeshadow", value: "eyeshadow"},
   {name: "eyeliner", value: "eyeliner"},
@@ -181,9 +181,9 @@ let isSubmitting = false
       <div class="float-box list-block-item">
         <form >
           <label>Start typing the brand name:</label>
-          <input list="brand" name="brand" type="text" v-model="brandString" v-on:input="getBrandSuggestions" autocomplete="true" />
+          <input aria-label="add your brand name" list="brand" name="brand" type="text" v-model="brandString" v-on:input="getBrandSuggestions" autocomplete="true" />
           <datalist name="brand" id="brand">
-            <option v-for="result in autocompleteResults" :key="result.name" v-on:click="setBrand(result.name)">{{result.name}}</option>
+            <option aria-label="{{result.name}}" v-for="result in autocompleteResults" :key="result.name" v-on:click="setBrand(result.name)">{{result.name}}</option>
           </datalist>
 
           <button @click="(brandDefined = brandString)" class="btn btn-primary dropdown-submit" :disabled="isSubmitting">
@@ -211,15 +211,15 @@ let isSubmitting = false
       <h1>What product from {{ brandDefined }} do you wish to enter?</h1>
       <div class="float-box list-block-item">
         <form>
-          <label>Start typing the product name:</label>
-          <input list="product" name="product" type="text" v-model="productString" v-on:input="getProductSuggestions" autocomplete="true" />
+          <label>Start typing the product name, not including the brand name:</label>
+          <input aria-label="add your product name" list="product" name="product" type="text" v-model="productString" v-on:input="getProductSuggestions" autocomplete="true" />
           <datalist name="product" id="product">
-            <option v-for="result in autocompleteResults" :key="result.name" v-on:click="setProduct(result.name)">{{result.name}}</option>
+            <option aria-label="{{result.name}}" v-for="result in autocompleteResults" :key="result.name" v-on:click="setProduct(result.name)">{{result.name}}</option>
           </datalist>
 
           <router-link :to="{ path: '/product-notes', query: {brand: brandDefined, product: productString} }">
             <button type="button" class="btn btn-primary dropdown-submit" :disabled="isSubmitting">
-              <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+              <span aria-label="choose product" v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
               choose product
             </button>
           </router-link>
@@ -228,16 +228,14 @@ let isSubmitting = false
         <br>
         <form class="back-buttons">
           <button @click="resetFields(2)" class="btn btn-primary" :disabled="isSubmitting">
-            <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+            <span aria-label="go back" v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             go back
           </button>
           <button @click="resetFields(10)" class="btn btn-primary" :disabled="isSubmitting">
-            <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+            <span aria-label="start over"  v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
             start over
           </button>
         </form>
       </div>
     </div>
-
-
 </template>

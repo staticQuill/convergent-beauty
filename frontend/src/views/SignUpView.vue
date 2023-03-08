@@ -49,19 +49,19 @@ let isSubmitting = false
       <form @submit="onSubmit">
         <div class="form-group float-box">
           <label>Enter your preferred username</label>
-          <Field name="username" type="text" class="form-control" />
+          <Field aria-label="Enter Username" name="username" type="text" class="form-control" />
         </div>
         <div class="form-group float-box">
           <label>Enter your email address</label>
-          <Field name="email" type="email" class="form-control" />
+          <Field aria-label="Enter Email" name="email" type="email" class="form-control" />
         </div>
         <div class="form-group float-box">
           <label>Choose a password</label>
-          <Field name="password" type="password" class="form-control" />
+          <Field aria-label="Choose Password" name="password" type="password" class="form-control" />
         </div>
         <div class="form-group float-box">
           <label>Enter that password again</label>
-          <Field name="password2" type="password" class="form-control" />
+          <Field aria-label="Repeat Password" name="password2" type="password" class="form-control" />
         </div>
         <div class="form-group float-box">
           <button class="btn btn-primary" :disabled="isSubmitting">

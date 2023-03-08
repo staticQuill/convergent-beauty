@@ -196,6 +196,7 @@ let generalFeelList = generalSentiment.value.split(",")
         <h1>How would you describe the <b>texture</b> of the {{productDefined}} by {{brandDefined}}? Pick at least one or "not applicable".</h1>
           <div class="float-box list-block-item">
           <form >
+            Enter the texture of the product:
             <div v-for="texture in textures" class="input-list" :key="texture.value">
               <input name="texturesDefined" type="checkbox" :value="texture.value"/>{{ texture.name }}
             </div>
@@ -224,6 +225,7 @@ let generalFeelList = generalSentiment.value.split(",")
         <h1>How would you describe the <b>scent</b> of the {{productDefined}} by {{brandDefined}}? Pick at least one or "not applicable".</h1>
         <div class="float-box list-block-item">
           <form >
+            Describe the scent of the product:
             <div v-for="scent in scents" class="input-list" :key="scent.value">
               <input name="scentsDefined" type="checkbox" :value="scent.value"/>{{ scent.name }}
             </div>

@@ -19,7 +19,7 @@ console.log(authStore.user.bearerToken)
     <div>
       <h1>Hi, {{authUser?.username}}</h1>
       <RouterLink to="/new-product">
-      <div class="float-box centered-box">
+      <div aria-label="Add a product" class="float-box centered-box">
         <p>Add a product</p>
       </div>
       </RouterLink>
@@ -34,7 +34,7 @@ console.log(authStore.user.bearerToken)
       </div>
       </RouterLink>
       <div class="float-box centered-box">
-        <p>Adjust your sensory profile</p>
+        <p>Adjust your sensory profile (COMING SOON)</p>
       </div>
     </div>
   </Suspense>

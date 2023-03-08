@@ -54,11 +54,11 @@ let isSubmitting = false
       <form @submit="onSubmit">
         <div class="form-group float-box">
           <label>Enter your username</label>
-          <Field name="username" type="text" class="form-control" />
+          <Field aria-label="Enter Username" name="username" type="text" class="form-control" />
         </div>
         <div class="form-group float-box">
           <label>Enter your password</label>
-          <Field name="password" type="password" class="form-control" />
+          <Field aria-label="Enter Password" name="password" type="password" class="form-control" />
         </div>
         <div class="form-group float-box">
           <button class="btn btn-primary" :disabled="isSubmitting">
