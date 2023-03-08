@@ -7,7 +7,7 @@ const authStore = userAuthStore();
 
 <template>
   <div class="app-container">
-    <h1><img class="logo" src="src/assets/convergent-beauty-icon.png" alt="logo">convergent beauty<img class="logo" src="src/assets/convergent-beauty-icon.png" alt="logo"></h1>
+    <h1><img class="logo" src="assets/convergent-beauty-icon.png" alt="logo">convergent beauty<img class="logo" src="src/assets/convergent-beauty-icon.png" alt="logo"></h1>
     <nav v-show="authStore.user" class="navbar navbar-expand float-box">
       <div class="navbar-nav">
         <RouterLink to="/" class="nav-item nav-link">Home</RouterLink>
